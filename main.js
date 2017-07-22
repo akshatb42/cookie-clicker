@@ -186,7 +186,7 @@ Game.Launch=function()
 		Game.catchupLogic=0;
 		
 		Game.cookiesEarned=0;//all cookies earned during gameplay
-		Game.cookies=0;//cookies
+		Game.cookies=10000000;//cookies
 		Game.cookiesd=0;//cookies display
 		Game.cookiesPs=1;//cookies per second (to recalculate with every new purchase)
 		Game.cookiesReset=0;//cookies lost to resetting
