@@ -1656,7 +1656,7 @@ Game.Launch=function()
 				'<q>Too late.</q><sig>grandma</sig>'
 				]));
 				
-				if (Game.Objects['Farm'].amount>0) list.push(choose([
+				if (Game.Objects['Anuj'].amount>0) list.push(choose([
 				'News : cookie farms suspected of employing undeclared elderly workforce!',
 				'News : cookie farms release harmful chocolate in our rivers, says scientist!',
 				'News : genetically-modified chocolate controversy strikes cookie farmers!',
@@ -2117,7 +2117,7 @@ Game.Launch=function()
 		Game.SpecialGrandmaUnlock=15;
 		new Game.Object('Grandma','grandma|grandmas|baked','A nice grandma to bake more cookies.','grandma','grandmaIcon','grandmaBackground',100,function(){
 			var mult=0;
-			if (Game.Has('Farmer grandmas')) mult++;
+			if (Game.Has('Anujer grandmas')) mult++;
 			if (Game.Has('Worker grandmas')) mult++;
 			if (Game.Has('Miner grandmas')) mult++;
 			if (Game.Has('Cosmic grandmas')) mult++;
@@ -2134,7 +2134,7 @@ Game.Launch=function()
 			return Game.ComputeCps(0.5,Game.Has('Forwards from grandma')*0.3+add,Game.Has('Steel-plated rolling pins')+Game.Has('Lubricated dentures')+Game.Has('Prune juice')+mult);
 		},Game.NewDrawFunction(function(){
 			var list=['grandma'];
-			if (Game.Has('Farmer grandmas')) list.push('farmerGrandma');
+			if (Game.Has('Anujer grandmas')) list.push('farmerGrandma');
 			if (Game.Has('Worker grandmas')) list.push('workerGrandma');
 			if (Game.Has('Miner grandmas')) list.push('minerGrandma');
 			if (Game.Has('Cosmic grandmas')) list.push('cosmicGrandma');
@@ -2157,12 +2157,12 @@ Game.Launch=function()
 			}
 		};
 		
-		new Game.Object('Farm','farm|farms|harvested','Grows cookie plants from cookie seeds.','farm','farmIcon','farmBackground',500,function(){
+		new Game.Object('Anuj','farm|farms|harvested','Grows cookie plants from cookie seeds.','custom/anuj-small','custom/anuj-face','farmBackground',500,function(){
 			return Game.ComputeCps(2,Game.Has('Cheap hoes')*0.5,Game.Has('Fertilizer')+Game.Has('Cookie trees')+Game.Has('Genetically-modified cookies'));
 		},Game.NewDrawFunction(0,16,16,64,2,32),function(){
 			if (this.amount>=1) Game.Unlock(['Cheap hoes','Fertilizer']);if (this.amount>=10) Game.Unlock('Cookie trees');if (this.amount>=50) Game.Unlock('Genetically-modified cookies');
-			if (this.amount>=Game.SpecialGrandmaUnlock && Game.Objects['Grandma'].amount>0) Game.Unlock('Farmer grandmas');
-			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Farm ill');
+			if (this.amount>=Game.SpecialGrandmaUnlock && Game.Objects['Grandma'].amount>0) Game.Unlock('Anujer grandmas');
+			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
 		new Game.Object('Factory','factory|factories|mass-produced','Produces large quantities of cookies.','factory','factoryIcon','factoryBackground',3000,function(){
@@ -2398,9 +2398,9 @@ Game.Launch=function()
 		new Game.Upgrade('Lubricated dentures','Grandmas are <b>twice</b> as efficient.<q>Squish</q>',Game.Objects['Grandma'].basePrice*tier3,[1,1]);
 		
 		order=300;
-		new Game.Upgrade('Cheap hoes','Farms gain <b>+0.5</b> base CpS.',Game.Objects['Farm'].basePrice*tier1,[2,0]);
-		new Game.Upgrade('Fertilizer','Farms are <b>twice</b> as efficient.<q>It\'s chocolate, I swear.</q>',Game.Objects['Farm'].basePrice*tier2,[2,0]);
-		new Game.Upgrade('Cookie trees','Farms are <b>twice</b> as efficient.<q>A relative of the breadfruit.</q>',Game.Objects['Farm'].basePrice*tier3,[2,1]);
+		new Game.Upgrade('Cheap hoes','Anujs gain <b>+0.5</b> base CpS.',Game.Objects['Anuj'].basePrice*tier1,[2,0]);
+		new Game.Upgrade('Fertilizer','Anujs are <b>twice</b> as efficient.<q>It\'s chocolate, I swear.</q>',Game.Objects['Anuj'].basePrice*tier2,[2,0]);
+		new Game.Upgrade('Cookie trees','Anujs are <b>twice</b> as efficient.<q>A relative of the breadfruit.</q>',Game.Objects['Anuj'].basePrice*tier3,[2,1]);
 		
 		order=400;
 		new Game.Upgrade('Sturdier conveyor belts','Factories gain <b>+4</b> base CpS.',Game.Objects['Factory'].basePrice*tier1,[4,0]);
@@ -2454,7 +2454,7 @@ Game.Launch=function()
 		new Game.Upgrade('Quadrillion fingers','The mouse and cursors gain <b>+20</b> cookies for each non-cursor object owned.<q>clickityclickityclickityclickityclick</q>',50000000000,[3,6]);
 		
 		order=200;new Game.Upgrade('Prune juice','Grandmas are <b>twice</b> as efficient.<q>Gets me going.</q>',Game.Objects['Grandma'].basePrice*tier4,[1,2]);
-		order=300;new Game.Upgrade('Genetically-modified cookies','Farms are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Farm'].basePrice*tier4,[2,2]);
+		order=300;new Game.Upgrade('Genetically-modified cookies','Anujs are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Anuj'].basePrice*tier4,[2,2]);
 		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your cookies a healthy glow.</q>',Game.Objects['Factory'].basePrice*tier4,[4,2]);
 		order=500;new Game.Upgrade('Ultimadrill','Mines are <b>twice</b> as efficient.<q>Pierce the heavens, etc.</q>',Game.Objects['Mine'].basePrice*tier4,[3,2]);
 		order=600;new Game.Upgrade('Warp drive','Shipments are <b>twice</b> as efficient.',Game.Objects['Shipment'].basePrice*tier4,[5,2]);
@@ -2476,7 +2476,7 @@ Game.Launch=function()
 		type='';power=0;
 		
 		order=250;
-		new Game.Upgrade('Farmer grandmas','Grandmas are <b>twice</b> as efficient.',Game.Objects['Farm'].basePrice*tier2,[10,9],function(){Game.Objects['Grandma'].drawFunction();});
+		new Game.Upgrade('Anujer grandmas','Grandmas are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Grandma'].drawFunction();});
 		new Game.Upgrade('Worker grandmas','Grandmas are <b>twice</b> as efficient.',Game.Objects['Factory'].basePrice*tier2,[10,9],function(){Game.Objects['Grandma'].drawFunction();});
 		new Game.Upgrade('Miner grandmas','Grandmas are <b>twice</b> as efficient.',Game.Objects['Mine'].basePrice*tier2,[10,9],function(){Game.Objects['Grandma'].drawFunction();});
 		new Game.Upgrade('Cosmic grandmas','Grandmas are <b>twice</b> as efficient.',Game.Objects['Shipment'].basePrice*tier2,[10,9],function(){Game.Objects['Grandma'].drawFunction();});
@@ -2746,7 +2746,7 @@ Game.Launch=function()
 		order=1200;
 		new Game.Achievement('My first farm','Have <b>1</b> farm.',[2,0]);
 		new Game.Achievement('Reap what you sow','Have <b>50</b> farms.',[2,1]);
-		new Game.Achievement('Farm ill','Have <b>100</b> farms.',[2,2]);
+		new Game.Achievement('Anuj ill','Have <b>100</b> farms.',[2,2]);
 		
 		order=1300;
 		new Game.Achievement('Production chain','Have <b>1</b> factory.',[4,0]);
@@ -3095,7 +3095,7 @@ Game.Launch=function()
 			if (Game.UpgradesOwned>=50) Game.Win('Augmenter');
 			if (Game.UpgradesOwned>=100) Game.Win('Upgrader');
 			
-			if (!Game.HasAchiev('Elder') && Game.Has('Farmer grandmas') && Game.Has('Worker grandmas') && Game.Has('Miner grandmas') && Game.Has('Cosmic grandmas') && Game.Has('Transmuted grandmas') && Game.Has('Altered grandmas') && Game.Has('Grandmas\' grandmas')) Game.Win('Elder');
+			if (!Game.HasAchiev('Elder') && Game.Has('Anujer grandmas') && Game.Has('Worker grandmas') && Game.Has('Miner grandmas') && Game.Has('Cosmic grandmas') && Game.Has('Transmuted grandmas') && Game.Has('Altered grandmas') && Game.Has('Grandmas\' grandmas')) Game.Win('Elder');
 			if (Game.Objects['Grandma'].amount>=6 && !Game.Has('Bingo center/Research facility') && Game.HasAchiev('Elder')) Game.Unlock('Bingo center/Research facility');
 			if (Game.pledges>0) Game.Win('Elder nap');
 			if (Game.pledges>=5) Game.Win('Elder slumber');
