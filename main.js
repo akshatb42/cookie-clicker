@@ -2115,7 +2115,7 @@ Game.Launch=function()
 		});
 		
 		Game.SpecialWangUnlock=15;
-		new Game.Object('Wang','grandma|grandmas|baked','A nice grandma to bake more cookies.','custom/wang-basic-small','grandmaIcon','grandmaBackground',100,function(){
+		new Game.Object('Wang','grandma|grandmas|baked','A nice grandma to bake more cookies.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
 			var mult=0;
 			if (Game.Has('Farmer grandmas')) mult++;
 			if (Game.Has('Worker grandmas')) mult++;
