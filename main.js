@@ -2115,7 +2115,7 @@ Game.Launch=function()
 		});
 		
 		Game.SpecialGrandmaUnlock=15;
-		new Game.Object('Grandma','grandma|grandmas|baked','A nice grandma to bake more cookies.','custom/wang-basic-small','custom/anuj-face','grandmaBackground',100,function(){
+		new Game.Object('Grandma','grandma|grandmas|baked','A nice grandma to bake more cookies.','custom/wang-basic-small','grandmaIcon','grandmaBackground',100,function(){
 			var mult=0;
 			if (Game.Has('Anujer grandmas')) mult++;
 			if (Game.Has('Worker grandmas')) mult++;
@@ -2133,7 +2133,7 @@ Game.Launch=function()
 			if (Game.Has('Elder Pact')) add+=Game.Objects['Portal'].amount*0.05;
 			return Game.ComputeCps(0.5,Game.Has('Forwards from grandma')*0.3+add,Game.Has('Steel-plated rolling pins')+Game.Has('Lubricated dentures')+Game.Has('Prune juice')+mult);
 		},Game.NewDrawFunction(function(){
-			var list=['grandma'];
+			var list=['custom/wang-basic-small'];
 			if (Game.Has('Anujer grandmas')) list.push('farmerGrandma');
 			if (Game.Has('Worker grandmas')) list.push('workerGrandma');
 			if (Game.Has('Miner grandmas')) list.push('minerGrandma');
