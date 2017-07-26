@@ -1664,7 +1664,7 @@ Game.Launch=function()
 				'News : farm cookies deemed unfit for vegans, says nutritionist.'
 				]));
 				
-				if (Game.Objects['Factory'].amount>0) list.push(choose([
+				if (Game.Objects['Henry'].amount>0) list.push(choose([
 				'News : cookie factories linked to global warming!',
 				'News : cookie factories involved in chocolate weather controversy!',
 				'News : cookie factories on strike, robotic minions employed to replace workforce!',
@@ -2165,7 +2165,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
-		new Game.Object('Factory','factory|factories|mass-produced','Produces large quantities of cookies.','factory','factoryIcon','factoryBackground',3000,function(){
+		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of cookies.','factory','factoryIcon','factoryBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -2403,9 +2403,9 @@ Game.Launch=function()
 		new Game.Upgrade('Cookie trees','Anujs are <b>twice</b> as efficient.<q>A relative of the breadfruit.</q>',Game.Objects['Anuj'].basePrice*tier3,[2,1]);
 		
 		order=400;
-		new Game.Upgrade('Sturdier conveyor belts','Factories gain <b>+4</b> base CpS.',Game.Objects['Factory'].basePrice*tier1,[4,0]);
-		new Game.Upgrade('Child labor','Factories are <b>twice</b> as efficient.<q>Cheaper, healthier workforce - and so much more receptive to whipping!</q>',Game.Objects['Factory'].basePrice*tier2,[4,0]);
-		new Game.Upgrade('Sweatshop','Factories are <b>twice</b> as efficient.<q>Slackers will be terminated.</q>',Game.Objects['Factory'].basePrice*tier3,[4,1]);
+		new Game.Upgrade('Sturdier conveyor belts','Factories gain <b>+4</b> base CpS.',Game.Objects['Henry'].basePrice*tier1,[4,0]);
+		new Game.Upgrade('Child labor','Factories are <b>twice</b> as efficient.<q>Cheaper, healthier workforce - and so much more receptive to whipping!</q>',Game.Objects['Henry'].basePrice*tier2,[4,0]);
+		new Game.Upgrade('Sweatshop','Factories are <b>twice</b> as efficient.<q>Slackers will be terminated.</q>',Game.Objects['Henry'].basePrice*tier3,[4,1]);
 		
 		order=500;
 		new Game.Upgrade('Sugar gas','Mines gain <b>+10</b> base CpS.<q>A pink, volatile gas, found in the depths of some chocolate caves.</q>',Game.Objects['Mine'].basePrice*tier1,[3,0]);
@@ -2455,7 +2455,7 @@ Game.Launch=function()
 		
 		order=200;new Game.Upgrade('Prune juice','Wangs are <b>twice</b> as efficient.<q>Gets me going.</q>',Game.Objects['Wang'].basePrice*tier4,[1,2]);
 		order=300;new Game.Upgrade('Genetically-modified cookies','Anujs are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Anuj'].basePrice*tier4,[2,2]);
-		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your cookies a healthy glow.</q>',Game.Objects['Factory'].basePrice*tier4,[4,2]);
+		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your cookies a healthy glow.</q>',Game.Objects['Henry'].basePrice*tier4,[4,2]);
 		order=500;new Game.Upgrade('Ultimadrill','Mines are <b>twice</b> as efficient.<q>Pierce the heavens, etc.</q>',Game.Objects['Mine'].basePrice*tier4,[3,2]);
 		order=600;new Game.Upgrade('Warp drive','Shipments are <b>twice</b> as efficient.',Game.Objects['Shipment'].basePrice*tier4,[5,2]);
 		order=700;new Game.Upgrade('Ambrosia','Alchemy labs are <b>twice</b> as efficient.',Game.Objects['Alchemy lab'].basePrice*tier4,[6,2]);
@@ -2477,7 +2477,7 @@ Game.Launch=function()
 		
 		order=250;
 		new Game.Upgrade('Farmer grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Worker grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Factory'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
+		new Game.Upgrade('Worker grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		new Game.Upgrade('Miner grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Mine'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		new Game.Upgrade('Cosmic grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Shipment'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		new Game.Upgrade('Transmuted grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Alchemy lab'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
@@ -2964,12 +2964,6 @@ Game.Launch=function()
 		
 		
 		/*=====================================================================================
-		DUNGEONS (unfinished)
-		=======================================================================================*/
-		
-		LaunchDungeons();
-		
-		/*=====================================================================================
 		INITIALIZATION END; GAME READY TO LAUNCH
 		=======================================================================================*/
 		
@@ -3038,7 +3032,7 @@ Game.Launch=function()
 		{
 			//if (Game.Has('Arcane sugar') && !Game.Has('Elder Pact')) Game.Unlock('Elder Pact');//temporary fix for something stupid I've done
 			
-			//if (Game.Objects['Factory'].amount>=50 && Game.Objects['Factory'].specialUnlocked==0) {Game.Objects['Factory'].unlockSpecial();Game.Popup('You have unlocked the factory dungeons!');}
+			//if (Game.Objects['Henry'].amount>=50 && Game.Objects['Henry'].specialUnlocked==0) {Game.Objects['Henry'].unlockSpecial();Game.Popup('You have unlocked the factory dungeons!');}
 			if (isNaN(Game.cookies)) {Game.cookies=0;Game.cookiesEarned=0;Game.recalculateGains=1;}
 			
 			if (Game.cookiesEarned>=9999999) Game.Unlock(['Oatmeal raisin cookies','Peanut butter cookies','Plain cookies','Sugar cookies']);

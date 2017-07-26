@@ -24,7 +24,7 @@ var LaunchDungeons=function()
 	/*=====================================================================================
 	CREATE DUNGEON TYPES
 	=======================================================================================*/
-	new Game.DungeonType('Factory').
+	new Game.DungeonType('Henry').
 	nameGenerator=function(){
 		var str='';
 		str+=Game.GetWord(choose(['secret','ruined','magical']))+' '+choose(['factory','factories','bakery','bakeries','confectionery','laboratory','research center','chocolate forge','chocolate foundry','manufactory','warehouse','machinery','works','bakeworks','workshop','assembly line']);
@@ -249,9 +249,9 @@ var LaunchDungeons=function()
 	/*=====================================================================================
 	CREATE DUNGEONS
 	=======================================================================================*/
-	Game.Objects['Factory'].special=function()
+	Game.Objects['Henry'].special=function()
 	{
-		this.dungeon=new Game.Dungeon('Factory',this.id);
+		this.dungeon=new Game.Dungeon('Henry',this.id);
 		this.dungeon.Generate();
 		this.specialDrawFunction=function(){this.dungeon.Refresh();};
 		this.drawSpecialButton=function(){return this.dungeon.DrawButton();};
