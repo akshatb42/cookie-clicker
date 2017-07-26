@@ -175,9 +175,6 @@ Game.Launch=function()
 		
 		Game.version=1.036;
 		Game.beta=0;
-		l('versionNumber').innerHTML='v.'+Game.version+(Game.beta?' <span style="color:#ff0;">beta</span>':'');
-		//l('links').innerHTML=(Game.beta?'<a href="../" target="blank">Live version</a> | ':'<a href="beta" target="blank">Try the beta!</a> | ')+'<a href="http://orteil.dashnet.org/experiments/cookie/" target="blank">Cookie Clicker Classic</a>';
-		l('links').innerHTML='<a href="http://orteil.dashnet.org/experiments/cookie/" target="blank">Cookie Clicker Classic</a>';
 		
 		//latency compensator stuff
 		Game.time=new Date().getTime();
@@ -1546,7 +1543,6 @@ Game.Launch=function()
 		}
 		l('prefsButton').onclick=function(){Game.ShowMenu('prefs');};
 		l('statsButton').onclick=function(){Game.ShowMenu('stats');};
-		l('logButton').onclick=function(){Game.ShowMenu('log');};
 		
 		
 		/*=====================================================================================
@@ -1672,63 +1668,10 @@ Game.Launch=function()
 				'News : factory-made cookies linked to obesity, says study.'
 				]));
 				
-				if (Game.Objects['Mine'].amount>0) list.push(choose([
-				'News : '+Math.floor(Math.random()*1000+2)+' miners dead in chocolate mine catastrophe!',
-				'News : '+Math.floor(Math.random()*1000+2)+' miners trapped in collapsed chocolate mine!',
-				'News : chocolate mines found to cause earthquakes and sink holes!',
-				'News : chocolate mine goes awry, floods village in chocolate!',
-				'News : depths of chocolate mines found to house "peculiar, chocolaty beings"!'
-				]));
-				
-				if (Game.Objects['Shipment'].amount>0) list.push(choose([
-				'News : new chocolate planet found, becomes target of cookie-trading spaceships!',
-				'News : massive chocolate planet found with 99.8% certified pure dark chocolate core!',
-				'News : space tourism booming as distant planets attract more bored millionaires!',
-				'News : chocolate-based organisms found on distant planet!',
-				'News : ancient baking artifacts found on distant planet; "terrifying implications", experts say.'
-				]));
-				
-				if (Game.Objects['Alchemy lab'].amount>0) list.push(choose([
-				'News : national gold reserves dwindle as more and more of the precious mineral is turned to cookies!',
-				'News : chocolate jewelry found fashionable, gold and diamonds "just a fad", says specialist.',
-				'News : silver found to also be transmutable into white chocolate!',
-				'News : defective alchemy lab shut down, found to convert cookies to useless gold.',
-				'News : alchemy-made cookies shunned by purists!'
-				]));
-				
-				if (Game.Objects['Portal'].amount>0) list.push(choose([
-				'News : nation worried as more and more unsettling creatures emerge from dimensional portals!',
-				'News : dimensional portals involved in city-engulfing disaster!',
-				'News : tourism to cookieverse popular with bored teenagers! Casualty rate as high as 73%!',
-				'News : cookieverse portals suspected to cause fast aging and obsession with baking, says study.',
-				'News : "do not settle near portals," says specialist; "your children will become strange and corrupted inside."'
-				]));
-				
-				if (Game.Objects['Time machine'].amount>0) list.push(choose([
-				'News : time machines involved in history-rewriting scandal! Or are they?',
-				'News : time machines used in unlawful time tourism!',
-				'News : cookies brought back from the past "unfit for human consumption", says historian.',
-				'News : various historical figures inexplicably replaced with talking lumps of dough!',
-				'News : "I have seen the future," says time machine operator, "and I do not wish to go there again."'
-				]));
-				
-				if (Game.Objects['Antimatter condenser'].amount>0) list.push(choose([
-				'News : whole town seemingly swallowed by antimatter-induced black hole; more reliable sources affirm town "never really existed"!',
-				'News : "explain to me again why we need particle accelerators to bake cookies?" asks misguided local woman.',
-				'News : first antimatter condenser successfully turned on, doesn\'t rip apart reality!',
-				'News : researchers conclude that what the cookie industry needs, first and foremost, is "more magnets".',
-				'News : "unravelling the fabric of reality just makes these cookies so much tastier", claims scientist.'
-				]));
 				
 				if (Game.HasAchiev('Base 10')) list.push('News : cookie manufacturer completely forgoes common sense, lets OCD drive building decisions!');
-				if (Game.HasAchiev('From scratch')) list.push('News : follow the tear-jerking, riches-to-rags story about a local cookie manufacturer who decided to give it all up!');
-				if (Game.HasAchiev('A world filled with cookies')) list.push('News : known universe now jammed with cookies! No vacancies!');
-				if (Game.HasAchiev('Serendipity')) list.push('News : local cookie manufacturer becomes luckiest being alive!');
 				
 				if (Game.Has('Kitten helpers')) list.push('News : faint meowing heard around local cookie facilities; suggests new ingredient being tested.');
-				if (Game.Has('Kitten workers')) list.push('News : crowds of meowing kittens with little hard hats reported near local cookie facilities.');
-				if (Game.Has('Kitten engineers')) list.push('News : surroundings of local cookie facilities now overrun with kittens in adorable little suits. Authorities advise to stay away from the premises.');
-				if (Game.Has('Kitten overseers')) list.push('News : locals report troups of bossy kittens meowing adorable orders at passerbys.');
 				
 				var animals=['newts','penguins','scorpions','axolotls','puffins','porpoises','blowfish','horses','crayfish','slugs','humpback whales','nurse sharks','giant squids','polar bears','fruit bats','frogs','sea squirts','velvet worms','mole rats','paramecia','nematodes','tardigrades','giraffes'];
 				if (Game.cookiesEarned>=10000) list.push(
@@ -2173,52 +2116,6 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
-		new Game.Object('Mine','mine|mines|mined','Mines out cookie dough and chocolate chips.','mine','mineIcon','mineBackground',10000,function(){
-			return Game.ComputeCps(40,Game.Has('Sugar gas')*10,Game.Has('Megadrill')+Game.Has('Ultradrill')+Game.Has('Ultimadrill'));
-		},Game.NewDrawFunction(0,16,16,64,2,24),function(){
-			if (this.amount>=1) Game.Unlock(['Sugar gas','Megadrill']);if (this.amount>=10) Game.Unlock('Ultradrill');if (this.amount>=50) Game.Unlock('Ultimadrill');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Miner grandmas');
-			if (this.amount>=1) Game.Win('You know the drill');if (this.amount>=50) Game.Win('Excavation site');if (this.amount>=100) Game.Win('Hollow the planet');
-		});
-		
-		new Game.Object('Shipment','shipment|shipments|shipped','Brings in fresh cookies from the cookie planet.','shipment','shipmentIcon','shipmentBackground',40000,function(){
-			return Game.ComputeCps(100,Game.Has('Vanilla nebulae')*30,Game.Has('Wormholes')+Game.Has('Frequent flyer')+Game.Has('Warp drive'));
-		},Game.NewDrawFunction(0,16,16,64),function(){
-			if (this.amount>=1) Game.Unlock(['Vanilla nebulae','Wormholes']);if (this.amount>=10) Game.Unlock('Frequent flyer');if (this.amount>=50) Game.Unlock('Warp drive');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Cosmic grandmas');
-			if (this.amount>=1) Game.Win('Expedition');if (this.amount>=50) Game.Win('Galactic highway');if (this.amount>=100) Game.Win('Far far away');
-		});
-		
-		new Game.Object('Alchemy lab','alchemy lab|alchemy labs|transmuted','Turns gold into cookies!','alchemylab','alchemylabIcon','alchemylabBackground',200000,function(){
-			return Game.ComputeCps(400,Game.Has('Antimony')*100,Game.Has('Essence of dough')+Game.Has('True chocolate')+Game.Has('Ambrosia'));
-		},Game.NewDrawFunction(0,16,16,64,2,16),function(){
-			if (this.amount>=1) Game.Unlock(['Antimony','Essence of dough']);if (this.amount>=10) Game.Unlock('True chocolate');if (this.amount>=50) Game.Unlock('Ambrosia');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Transmuted grandmas');
-			if (this.amount>=1) Game.Win('Transmutation');if (this.amount>=50) Game.Win('Transmogrification');if (this.amount>=100) Game.Win('Gold member');
-		});
-		
-		new Game.Object('Portal','portal|portals|retrieved','Opens a door to the Cookieverse.','portal','portalIcon','portalBackground',1666666,function(){
-			return Game.ComputeCps(6666,Game.Has('Ancient tablet')*1666,Game.Has('Insane oatling workers')+Game.Has('Soul bond')+Game.Has('Sanity dance'));
-		},Game.NewDrawFunction(0,32,32,64,2),function(){
-			if (this.amount>=1) Game.Unlock(['Ancient tablet','Insane oatling workers']);if (this.amount>=10) Game.Unlock('Soul bond');if (this.amount>=50) Game.Unlock('Sanity dance');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Altered grandmas');
-			if (this.amount>=1) Game.Win('A whole new world');if (this.amount>=50) Game.Win('Now you\'re thinking');if (this.amount>=100) Game.Win('Dimensional shift');
-		});
-		new Game.Object('Time machine','time machine|time machines|recovered','Brings cookies from the past, before they were even eaten.','timemachine','timemachineIcon','timemachineBackground',123456789,function(){
-			return Game.ComputeCps(98765,Game.Has('Flux capacitors')*9876,Game.Has('Time paradox resolver')+Game.Has('Quantum conundrum')+Game.Has('Causality enforcer'));
-		},Game.NewDrawFunction(0,32,32,64,1),function(){
-			if (this.amount>=1) Game.Unlock(['Flux capacitors','Time paradox resolver']);if (this.amount>=10) Game.Unlock('Quantum conundrum');if (this.amount>=50) Game.Unlock('Causality enforcer');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Wangs\' grandmas');
-			if (this.amount>=1) Game.Win('Time warp');if (this.amount>=50) Game.Win('Alternate timeline');if (this.amount>=100) Game.Win('Rewriting history');
-		});
-		new Game.Object('Antimatter condenser','antimatter condenser|antimatter condensers|condensed','Condenses the antimatter in the universe into cookies.','antimattercondenser','antimattercondenserIcon','antimattercondenserBackground',3999999999,function(){
-			return Game.ComputeCps(999999,Game.Has('Sugar bosons')*99999,Game.Has('String theory')+Game.Has('Large macaron collider')+Game.Has('Big bang bake'));
-		},Game.NewDrawFunction(0,0,64,64,1),function(){
-			if (this.amount>=1) Game.Unlock(['Sugar bosons','String theory']);if (this.amount>=10) Game.Unlock('Large macaron collider');if (this.amount>=50) Game.Unlock('Big bang bake');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Antigrandmas');
-			if (this.amount>=1) Game.Win('Antibatter');if (this.amount>=50) Game.Win('Quirky quarks');if (this.amount>=100) Game.Win('It does matter!');
-		});
-		Game.Objects['Antimatter condenser'].displayName='<span style="font-size:65%;">Antimatter condenser</span>';//shrink the name since it's so large
 		
 		/*=====================================================================================
 		UPGRADES
@@ -2407,30 +2304,6 @@ Game.Launch=function()
 		new Game.Upgrade('Child labor','Factories are <b>twice</b> as efficient.<q>Cheaper, healthier workforce - and so much more receptive to whipping!</q>',Game.Objects['Henry'].basePrice*tier2,[4,0]);
 		new Game.Upgrade('Sweatshop','Factories are <b>twice</b> as efficient.<q>Slackers will be terminated.</q>',Game.Objects['Henry'].basePrice*tier3,[4,1]);
 		
-		order=500;
-		new Game.Upgrade('Sugar gas','Mines gain <b>+10</b> base CpS.<q>A pink, volatile gas, found in the depths of some chocolate caves.</q>',Game.Objects['Mine'].basePrice*tier1,[3,0]);
-		new Game.Upgrade('Megadrill','Mines are <b>twice</b> as efficient.',Game.Objects['Mine'].basePrice*tier2,[3,0]);
-		new Game.Upgrade('Ultradrill','Mines are <b>twice</b> as efficient.',Game.Objects['Mine'].basePrice*tier3,[3,1]);
-		
-		order=600;
-		new Game.Upgrade('Vanilla nebulae','Shipments gain <b>+30</b> base CpS.',Game.Objects['Shipment'].basePrice*tier1,[5,0]);
-		new Game.Upgrade('Wormholes','Shipments are <b>twice</b> as efficient.<q>By using these as shortcuts, your ships can travel much faster.</q>',Game.Objects['Shipment'].basePrice*tier2,[5,0]);
-		new Game.Upgrade('Frequent flyer','Shipments are <b>twice</b> as efficient.<q>Come back soon!</q>',Game.Objects['Shipment'].basePrice*tier3,[5,1]);
-		
-		order=700;
-		new Game.Upgrade('Antimony','Alchemy labs gain <b>+100</b> base CpS.<q>Actually worth a lot of mony.</q>',Game.Objects['Alchemy lab'].basePrice*tier1,[6,0]);
-		new Game.Upgrade('Essence of dough','Alchemy labs are <b>twice</b> as efficient.<q>Extracted through the 5 ancient steps of alchemical baking.</q>',Game.Objects['Alchemy lab'].basePrice*tier2,[6,0]);
-		new Game.Upgrade('True chocolate','Alchemy labs are <b>twice</b> as efficient.<q>The purest form of cacao.</q>',Game.Objects['Alchemy lab'].basePrice*tier3,[6,1]);
-		
-		order=800;
-		new Game.Upgrade('Ancient tablet','Portals gain <b>+1,666</b> base CpS.<q>A strange slab of peanut brittle, holding an ancient cookie recipe. Neat!</q>',Game.Objects['Portal'].basePrice*tier1,[7,0]);
-		new Game.Upgrade('Insane oatling workers','Portals are <b>twice</b> as efficient.<q>ARISE, MY MINIONS!</q>',Game.Objects['Portal'].basePrice*tier2,[7,0]);
-		new Game.Upgrade('Soul bond','Portals are <b>twice</b> as efficient.<q>So I just sign up and get more cookies? Sure, whatever!</q>',Game.Objects['Portal'].basePrice*tier3,[7,1]);
-		
-		order=900;
-		new Game.Upgrade('Flux capacitors','Time machines gain <b>+9,876</b> base CpS.<q>Bake to the future.</q>',1234567890,[8,0]);
-		new Game.Upgrade('Time paradox resolver','Time machines are <b>twice</b> as efficient.<q>No more fooling around with your own grandmother!</q>',9876543210,[8,0]);
-		new Game.Upgrade('Quantum conundrum','Time machines are <b>twice</b> as efficient.<q>It\'s full of stars!</q>',98765456789,[8,1]);
 		
 		order=20000;
 		new Game.Upgrade('Kitten helpers','You gain <b>more CpS</b> the more milk you have.<q>meow may I help you</q>',9000000,[1,7]);
@@ -2456,11 +2329,6 @@ Game.Launch=function()
 		order=200;new Game.Upgrade('Prune juice','Wangs are <b>twice</b> as efficient.<q>Gets me going.</q>',Game.Objects['Wang'].basePrice*tier4,[1,2]);
 		order=300;new Game.Upgrade('Genetically-modified cookies','Anujs are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Anuj'].basePrice*tier4,[2,2]);
 		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your cookies a healthy glow.</q>',Game.Objects['Henry'].basePrice*tier4,[4,2]);
-		order=500;new Game.Upgrade('Ultimadrill','Mines are <b>twice</b> as efficient.<q>Pierce the heavens, etc.</q>',Game.Objects['Mine'].basePrice*tier4,[3,2]);
-		order=600;new Game.Upgrade('Warp drive','Shipments are <b>twice</b> as efficient.',Game.Objects['Shipment'].basePrice*tier4,[5,2]);
-		order=700;new Game.Upgrade('Ambrosia','Alchemy labs are <b>twice</b> as efficient.',Game.Objects['Alchemy lab'].basePrice*tier4,[6,2]);
-		order=800;new Game.Upgrade('Sanity dance','Portals are <b>twice</b> as efficient.<q>We can change if we want to.<br>We can leave our brains behind.</q>',Game.Objects['Portal'].basePrice*tier4,[7,2]);
-		order=900;new Game.Upgrade('Causality enforcer','Time machines are <b>twice</b> as efficient.<q>What happened, happened.</q>',1234567890000,[8,2]);
 		
 		order=5000;
 		new Game.Upgrade('Lucky day','Golden cookies appear <b>twice as often</b> and last <b>twice as long</b>.',777777777,[10,1]);
@@ -2478,11 +2346,6 @@ Game.Launch=function()
 		order=250;
 		new Game.Upgrade('Farmer grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		new Game.Upgrade('Worker grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Miner grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Mine'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Cosmic grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Shipment'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Transmuted grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Alchemy lab'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Altered grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Portal'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Wangs\' grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Time machine'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		
 		order=15000;
 		Game.baseResearchTime=Game.fps*60*30;
@@ -2585,16 +2448,6 @@ Game.Launch=function()
 		new Game.Upgrade('Round british tea biscuits with heart motif','Cookie production multiplier <b>+15%</b>.',99999999999999,[10,4]);
 		new Game.Upgrade('Round chocolate british tea biscuits with heart motif','Cookie production multiplier <b>+15%</b>.<q>Quite.</q>',99999999999999,[11,4]);
 		type='';power=0;
-		
-		
-		order=1000;
-		new Game.Upgrade('Sugar bosons','Antimatter condensers gain <b>+99,999</b> base CpS.',Game.Objects['Antimatter condenser'].basePrice*tier1,[13,0]);
-		new Game.Upgrade('String theory','Antimatter condensers are <b>twice</b> as efficient.',Game.Objects['Antimatter condenser'].basePrice*tier2,[13,0]);
-		new Game.Upgrade('Large macaron collider','Antimatter condensers are <b>twice</b> as efficient.<q>How singular!</q>',Game.Objects['Antimatter condenser'].basePrice*tier3,[13,1]);
-		new Game.Upgrade('Big bang bake','Antimatter condensers are <b>twice</b> as efficient.<q>And that\'s how it all began.</q>',Game.Objects['Antimatter condenser'].basePrice*tier4,[13,2]);
-
-		order=250;
-		new Game.Upgrade('Antigrandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Antimatter condenser'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 
 		order=10000;
 		type='cookie';power=20;
