@@ -1667,6 +1667,14 @@ Game.Launch=function()
 				'News : cookie factories on strike - workers demand to stop being paid in cookies!',
 				'News : factory-made cookies linked to obesity, says study.'
 				]));
+
+				if (Game.Objects['Tdawg'].amount>0) list.push(choose([
+				'News : cookie factories linked to global warming!',
+				'News : cookie factories involved in chocolate weather controversy!',
+				'News : cookie factories on strike, robotic minions employed to replace workforce!',
+				'News : cookie factories on strike - workers demand to stop being paid in cookies!',
+				'News : factory-made cookies linked to obesity, says study.'
+				]));
 				
 				
 				if (Game.HasAchiev('Base 10')) list.push('News : cookie manufacturer completely forgoes common sense, lets OCD drive building decisions!');
@@ -2060,16 +2068,8 @@ Game.Launch=function()
 		Game.SpecialWangUnlock=15;
 		new Game.Object('Wang','grandma|grandmas|baked','A nice grandma to bake more cookies.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
 			var mult=0;
-			if (Game.Has('Farmer grandmas')) mult++;
-			if (Game.Has('Worker grandmas')) mult++;
-			if (Game.Has('Miner grandmas')) mult++;
-			if (Game.Has('Cosmic grandmas')) mult++;
-			if (Game.Has('Transmuted grandmas')) mult++;
-			if (Game.Has('Altered grandmas')) mult++;
-			if (Game.Has('Wangs\' grandmas')) mult++;
-			if (Game.Has('Antigrandmas')) mult++;
-			if (Game.Has('Bingo center/Research facility')) mult+=2;
-			if (Game.Has('Ritual rolling pins')) mult++;
+			if (Game.Has('Mark wangs')) mult++;
+			if (Game.Has('Legend wangs')) mult++;
 			var add=0;
 			if (Game.Has('One mind')) add+=Game.Objects['Wang'].amount*0.02;
 			if (Game.Has('Communal brainsweep')) add+=Game.Objects['Wang'].amount*0.02;
@@ -2077,14 +2077,17 @@ Game.Launch=function()
 			return Game.ComputeCps(0.5,Game.Has('Forwards from grandma')*0.3+add,Game.Has('Steel-plated rolling pins')+Game.Has('Lubricated dentures')+Game.Has('Prune juice')+mult);
 		},Game.NewDrawFunction(function(){
 			var list=['custom/wang-basic-small'];
-			if (Game.Has('Farmer grandmas')) list.push('custom/wang-blue-small');
-			if (Game.Has('Worker grandmas')) list.push('custom/wang-legendary-small');
-			if (Game.Has('Miner grandmas')) list.push('minerWang');
-			if (Game.Has('Cosmic grandmas')) list.push('cosmicWang');
-			if (Game.Has('Transmuted grandmas')) list.push('transmutedWang');
-			if (Game.Has('Altered grandmas')) list.push('alteredWang');
-			if (Game.Has('Wangs\' grandmas')) list.push('grandmasWang');
-			if (Game.Has('Antigrandmas')) list.push('antiWang');
+
+			if (Game.Has('Mark wangs')) {
+                            list.push('custom/wang-blue-small');
+                            Game.Objects['Wang'].icon = 'custom/wang-blue-face';
+                        }
+
+			if (Game.Has('Legend wangs')) {
+                            list.push('custom/wang-legendary-small');
+                            Game.Objects['Wang'].icon = 'custom/wang-legend-face';
+                        }
+
 			return choose(list);
 		},8,8,32,3,16),function(){
 			if (this.amount>=1) Game.Unlock(['Forwards from grandma','Steel-plated rolling pins']);if (this.amount>=10) Game.Unlock('Lubricated dentures');if (this.amount>=50) Game.Unlock('Prune juice');
@@ -2104,18 +2107,25 @@ Game.Launch=function()
 			return Game.ComputeCps(2,Game.Has('Cheap hoes')*0.5,Game.Has('Fertilizer')+Game.Has('Cookie trees')+Game.Has('Genetically-modified cookies'));
 		},Game.NewDrawFunction(0,16,16,64,2,32),function(){
 			if (this.amount>=1) Game.Unlock(['Cheap hoes','Fertilizer']);if (this.amount>=10) Game.Unlock('Cookie trees');if (this.amount>=50) Game.Unlock('Genetically-modified cookies');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Farmer grandmas');
+			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Mark wangs');
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
-		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of cookies.','factory','factoryIcon','factoryBackground',3000,function(){
+		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of cookies.','factory','custom/henry-face','factoryBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
-			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Worker grandmas');
+			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Legend wangs');
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
+		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of cookies.','factory','custom/tdawg-face','factoryBackground',3000,function(){
+			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
+		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
+			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
+			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Legend wangs');
+			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
+		});
 		
 		/*=====================================================================================
 		UPGRADES
@@ -2344,8 +2354,8 @@ Game.Launch=function()
 		type='';power=0;
 		
 		order=250;
-		new Game.Upgrade('Farmer grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Worker grandmas','Wangs are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
+		new Game.Upgrade('Mark wangs','Wangs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
+		new Game.Upgrade('Legend wangs','Wangs are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		
 		order=15000;
 		Game.baseResearchTime=Game.fps*60*30;
@@ -2942,7 +2952,7 @@ Game.Launch=function()
 			if (Game.UpgradesOwned>=50) Game.Win('Augmenter');
 			if (Game.UpgradesOwned>=100) Game.Win('Upgrader');
 			
-			if (!Game.HasAchiev('Elder') && Game.Has('Farmer grandmas') && Game.Has('Worker grandmas') && Game.Has('Miner grandmas') && Game.Has('Cosmic grandmas') && Game.Has('Transmuted grandmas') && Game.Has('Altered grandmas') && Game.Has('Wangs\' grandmas')) Game.Win('Elder');
+			if (!Game.HasAchiev('Elder') && Game.Has('Mark wangs') && Game.Has('Legend wangs')) Game.Win('Elder');
 			if (Game.Objects['Wang'].amount>=6 && !Game.Has('Bingo center/Research facility') && Game.HasAchiev('Elder')) Game.Unlock('Bingo center/Research facility');
 			if (Game.pledges>0) Game.Win('Elder nap');
 			if (Game.pledges>=5) Game.Win('Elder slumber');
