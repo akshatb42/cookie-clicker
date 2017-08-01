@@ -670,7 +670,7 @@ Game.Launch=function()
 			if (Game.Has('Quadrillion fingers')) add+=20;
 			if (Game.Has('Quintillion fingers')) add+=100;
 			var num=0;
-			for (var i in Game.Objects) {if (Game.Objects[i].name!='Cursor') num+=Game.Objects[i].amount;}
+			for (var i in Game.Objects) {if (Game.Objects[i].name!='Stimulator') num+=Game.Objects[i].amount;}
 			add=add*num;
 			if (Game.Has('Plastic mouse')) add+=Game.cookiesPs*0.01;
 			if (Game.Has('Iron mouse')) add+=Game.cookiesPs*0.01;
@@ -2013,7 +2013,7 @@ Game.Launch=function()
 		}
 		
 		//define objects
-		new Game.Object('Cursor','cursor|cursors|clicked','Autoclicks once every 10 seconds.','cursor','cursoricon','',15,function(){
+		new Game.Object('Stimulator','cursor|cursors|clicked','Autoclicks once every 10 seconds.','custom/dildo','custom/dildoIcon','',15,function(){
 			var add=0;
 			if (Game.Has('Thousand fingers')) add+=0.1;
 			if (Game.Has('Million fingers')) add+=0.5;
@@ -2022,7 +2022,7 @@ Game.Launch=function()
 			if (Game.Has('Quadrillion fingers')) add+=20;
 			if (Game.Has('Quintillion fingers')) add+=100;
 			var num=0;
-			for (var i in Game.Objects) {if (Game.Objects[i].name!='Cursor') num+=Game.Objects[i].amount;}
+			for (var i in Game.Objects) {if (Game.Objects[i].name!='Stimulator') num+=Game.Objects[i].amount;}
 			add=add*num;
 			return Game.ComputeCps(0.1,Game.Has('Reinforced index finger')*0.1,Game.Has('Carpal tunnel prevention cream')+Game.Has('Ambidextrous'),add);
 		},function(){//draw function for cursors
@@ -2048,7 +2048,6 @@ Game.Launch=function()
 				var r=Math.floor(-(a)*360);
 				*/
 				str+='<div class="cursor" id="cursor'+i+'" style="left:'+x+'px;top:'+y+'px;transform:rotate('+r+'deg);-moz-transform:rotate('+r+'deg);-webkit-transform:rotate('+r+'deg);-ms-transform:rotate('+r+'deg);-o-transform:rotate('+r+'deg);"></div>';
-
 			}
 			l('cookieCursors').innerHTML=str;
 			if (!l('rowInfo'+this.id)) l('sectionLeftInfo').innerHTML='<div class="info" id="rowInfo'+this.id+'"><div class="infoContent" id="rowInfoContent'+this.id+'"></div><div><a onclick="Game.ObjectsById['+this.id+'].sell();">Sell 1</a></div></div>';
@@ -2111,7 +2110,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
-		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of cookies.','factory','custom/henry-face','factoryBackground',3000,function(){
+		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of cookies.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -2119,7 +2118,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
-		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of cookies.','factory','custom/tdawg-face','factoryBackground',3000,function(){
+		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of cookies.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -3041,7 +3040,7 @@ Game.Launch=function()
 		
 		if (Game.prefs.particles)
 		{
-			var amount=Game.Objects['Cursor'].amount;
+			var amount=Game.Objects['Stimulator'].amount;
 			for (var i=0;i<amount;i++)
 			{
 				var me=l('cursor'+i);
