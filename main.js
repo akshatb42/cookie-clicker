@@ -698,13 +698,19 @@ Game.Launch=function()
 				}
 				Game.Earn(Game.computedMouseCps);
 				Game.handmadeCookies+=Game.computedMouseCps;
-				if (Game.prefs.particles) Game.cookieParticleAdd();
+				//if (Game.prefs.particles) Game.cookieParticleAdd();
 				if (Game.prefs.numbers) Game.cookieNumberAdd('+'+Beautify(Game.computedMouseCps,1));
 				Game.cookieClicks++;
 			}
 			Game.lastClick=new Date().getTime();
 		}
 		l('bigCookie').onclick=Game.ClickCookie;
+		l('bigCookie').onmousedown=function() {
+                    l('bigCookie').style.backgroundImage='url(img/custom/oface-2.png)';
+                }
+		l('bigCookie').onmouseup=function() {
+                    l('bigCookie').style.backgroundImage='url(img/custom/oface-1.png)';
+                }
 		
 		Game.HowMuchPrestige=function(cookies)
 		{
@@ -946,6 +952,7 @@ Game.Launch=function()
 		PARTICLES
 		=======================================================================================*/
 		//falling cookies
+                /*
 		Game.cookieParticles=[];
 		var str='';
 		for (var i=0;i<40;i++)
@@ -1008,7 +1015,7 @@ Game.Launch=function()
 				me.l.style.msTransform='rotate('+r+'deg)';
 				me.l.style.oTransform='rotate('+r+'deg)';
 			}
-		}
+		}*/
 		
 		//rising numbers
 		Game.cookieNumbers=[];
@@ -2879,7 +2886,7 @@ Game.Launch=function()
 			var me=Game.Objects[i];
 			me.totalCookies+=me.storedTotalCps/Game.fps;
 		}
-		if (Game.cookies && Game.T%Math.ceil(Game.fps/Math.min(10,Game.cookiesPs))==0 && Game.prefs.numbers) Game.cookieParticleAdd();//cookie shower
+		//if (Game.cookies && Game.T%Math.ceil(Game.fps/Math.min(10,Game.cookiesPs))==0 && Game.prefs.numbers) Game.cookieParticleAdd();//cookie shower
 		if (Game.frenzy>0)
 		{
 			Game.frenzy--;
@@ -3118,7 +3125,7 @@ Game.Launch=function()
 		
 		if (Math.floor(Game.T%Game.fps/2)==0) Game.UpdateMenu();
 		
-		Game.cookieParticlesUpdate();
+		//Game.cookieParticlesUpdate();
 		Game.cookieNumbersUpdate();
 		Game.particlesUpdate();
 	}

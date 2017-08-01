@@ -434,7 +434,7 @@ q:after
 	position:absolute;
 	left:-128px;
 	top:-128px;
-	background:url(img/perfectCookie.png);
+	background:url(img/custom/oface-1.png);
 	background-size:256px 256px;
 	cursor:pointer;
 	z-index:10;
@@ -456,14 +456,6 @@ q:after
 	-ms-transform:scale(1.05,1.05);opacity:0.9;
 	-o-transform:scale(1.05,1.05);opacity:0.9;
 	transform:scale(1.05,1.05);opacity:0.9;
-}
-#bigCookie:active
-{
-	-webkit-transform:scale(0.98,0.98);opacity:1;
-	-moz-transform:scale(0.98,0.98);opacity:1;
-	-ms-transform:scale(0.98,0.98);opacity:1;
-	-o-transform:scale(0.98,0.98);opacity:1;
-	transform:scale(0.98,0.98);opacity:1;
 }
 #cookieShine
 {
