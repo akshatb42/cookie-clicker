@@ -182,18 +182,18 @@ Game.Launch=function()
 		Game.accumulatedDelay=0;
 		Game.catchupLogic=0;
 		
-		Game.cookiesEarned=0;//all cookies earned during gameplay
+		Game.cookiesEarned=0;//all o-gasms earned during gameplay
 		Game.cookies=10000000;//cookies
 		Game.cookiesd=0;//cookies display
 		Game.cookiesPs=1;//cookies per second (to recalculate with every new purchase)
 		Game.cookiesReset=0;//cookies lost to resetting
-		Game.frenzy=0;//as long as >0, cookie production is multiplied by frenzyPower
+		Game.frenzy=0;//as long as >0, o-gasm production is multiplied by frenzyPower
 		Game.frenzyPower=1;
-		Game.clickFrenzy=0;//as long as >0, mouse clicks get 777x more cookies
-		Game.cookieClicks=0;//+1 for each click on the cookie
-		Game.goldenClicks=0;//+1 for each golden cookie clicked
-		Game.missedGoldenClicks=0;//+1 for each golden cookie missed
-		Game.handmadeCookies=0;//all the cookies made from clicking the cookie
+		Game.rubFrenzy=0;//as long as >0, mouse rubs get 777x more o-gasms
+		Game.cookieClicks=0;//+1 for each rub on the cookie
+		Game.goldenClicks=0;//+1 for each golden o-gasm rubed
+		Game.missedGoldenClicks=0;//+1 for each golden o-gasm missed
+		Game.handmadeCookies=0;//all the o-gasms made from rubing the cookie
 		Game.milkProgress=0;//you can a little bit for each achievement; 0-1 : milk; 1-2 : chocolate milk; 2-3 : raspberry milk
 		Game.milkH=Game.milkProgress/2;//milk height, between 0 and 1 (although should never go above 0.5)
 		Game.milkHd=0;//milk height display
@@ -325,10 +325,10 @@ Game.Launch=function()
 			else
 			{
 				//that's right
-				//we're using cookies
+				//we're using o-gasms
 				//yeah I went there
 				var now=new Date();//we storin dis for 5 years, people
-				now.setFullYear(now.getFullYear()+5);//mmh stale cookies
+				now.setFullYear(now.getFullYear()+5);//mmh stale o-gasms
 				str=utf8_to_b64(str)+'!END!';
 				str='CookieClickerGame='+escape(str)+'; expires='+now.toUTCString()+';';
 				document.cookie=str;//aaand save
@@ -344,7 +344,7 @@ Game.Launch=function()
 		{
 			var str='';
 			if (data) str=unescape(data);
-			else if (document.cookie.indexOf('CookieClickerGame')>=0) str=unescape(document.cookie.split('CookieClickerGame=')[1]);//get cookie here
+			else if (document.cookie.indexOf('CookieClickerGame')>=0) str=unescape(document.cookie.split('CookieClickerGame=')[1]);//get o-gasm here
 			
 			if (str!='')
 			{
@@ -519,7 +519,7 @@ Game.Launch=function()
 						moni+=1000000*Math.pow(1.1,parseInt(str[14]));
 						if (parseInt(str[16])) moni+=123456789*Math.pow(1.1,parseInt(str[16]));
 						
-						alert('Imported old save from version '+version+'; recovered '+Beautify(Game.cookies)+' cookies, and converted buildings back to '+Beautify(moni)+' cookies.');
+						alert('Imported old save from version '+version+'; recovered '+Beautify(Game.cookies)+' o-gasms, and converted buildings back to '+Beautify(moni)+' o-gasms.');
 						
 						Game.cookies+=moni;
 						Game.cookiesEarned+=moni;
@@ -542,7 +542,7 @@ Game.Launch=function()
 					Game.elderWrathD=0;
 					Game.frenzy=0;
 					Game.frenzyPower=1;
-					Game.clickFrenzy=0;
+					Game.rubFrenzy=0;
 					Game.recalculateGains=1;
 					Game.storeToRebuild=1;
 					Game.upgradesToRebuild=1;
@@ -576,7 +576,7 @@ Game.Launch=function()
 				Game.milkType=-1;
 				Game.frenzy=0;
 				Game.frenzyPower=1;
-				Game.clickFrenzy=0;
+				Game.rubFrenzy=0;
 				Game.pledges=0;
 				Game.pledgeT=0;
 				Game.elderWrath=0;
@@ -663,12 +663,12 @@ Game.Launch=function()
 		Game.mouseCps=function()
 		{
 			var add=0;
-			if (Game.Has('Thousand fingers')) add+=0.1;
-			if (Game.Has('Million fingers')) add+=0.5;
-			if (Game.Has('Billion fingers')) add+=2;
-			if (Game.Has('Trillion fingers')) add+=10;
-			if (Game.Has('Quadrillion fingers')) add+=20;
-			if (Game.Has('Quintillion fingers')) add+=100;
+			if (Game.Has('Thousand Hz')) add+=0.1;
+			if (Game.Has('Million Hz')) add+=0.5;
+			if (Game.Has('Billion Hz')) add+=2;
+			if (Game.Has('Trillion Hz')) add+=10;
+			if (Game.Has('Quadrillion Hz')) add+=20;
+			if (Game.Has('Quintillion Hz')) add+=100;
 			var num=0;
 			for (var i in Game.Objects) {if (Game.Objects[i].name!='Stimulator') num+=Game.Objects[i].amount;}
 			add=add*num;
@@ -677,13 +677,13 @@ Game.Launch=function()
 			if (Game.Has('Titanium mouse')) add+=Game.cookiesPs*0.01;
 			if (Game.Has('Adamantium mouse')) add+=Game.cookiesPs*0.01;
 			var mult=1;
-			if (Game.clickFrenzy>0) mult*=777;
+			if (Game.rubFrenzy>0) mult*=777;
 			return mult*Game.ComputeCps(1,Game.Has('Reinforced index finger'),Game.Has('Carpal tunnel prevention cream')+Game.Has('Ambidextrous'),add);
 		}
 		Game.computedMouseCps=1;
 		Game.globalCpsMult=1;
 		Game.lastClick=0;
-		Game.autoclickerDetected=0;
+		Game.autoruberDetected=0;
 		Game.ClickCookie=function()
 		{
 			if (new Date().getTime()-Game.lastClick<1000/250)
@@ -693,8 +693,8 @@ Game.Launch=function()
 			{
 				if (new Date().getTime()-Game.lastClick<1000/15)
 				{
-					Game.autoclickerDetected+=Game.fps;
-					if (Game.autoclickerDetected>=Game.fps*5) Game.Win('Uncanny clicker');
+					Game.autoruberDetected+=Game.fps;
+					if (Game.autoruberDetected>=Game.fps*5) Game.Win('Uncanny ruber');
 				}
 				Game.Earn(Game.computedMouseCps);
 				Game.handmadeCookies+=Game.computedMouseCps;
@@ -795,7 +795,7 @@ Game.Launch=function()
 		}
 		Game.goldenCookie.spawn=function()
 		{
-			if (Game.goldenCookie.delay!=0 || Game.goldenCookie.life!=0) Game.Win('Cheated cookies taste awful');
+			if (Game.goldenCookie.delay!=0 || Game.goldenCookie.life!=0) Game.Win('Cheated o-gasms taste awful');
 			var me=l('goldenCookie');
 			if ((Game.elderWrath==1 && Math.random()<0.33) || (Game.elderWrath==2 && Math.random()<0.66) || (Game.elderWrath==3))
 			{
@@ -854,16 +854,16 @@ Game.Launch=function()
 		Game.goldenCookie.choose=function()
 		{
 			var list=[];
-			if (Game.goldenCookie.wrath>0) list.push('clot','multiply cookies','ruin cookies');
-			else list.push('frenzy','multiply cookies');
+			if (Game.goldenCookie.wrath>0) list.push('clot','multiply o-gasms','ruin o-gasms');
+			else list.push('frenzy','multiply o-gasms');
 			if (Game.goldenCookie.wrath>0 && Math.random()<0.3) list.push('blood frenzy','chain cookie');
 			else if (Math.random()<0.01 && Game.cookiesEarned>=100000) list.push('chain cookie');
-			if (Math.random()<0.05) list.push('click frenzy');
+			if (Math.random()<0.05) list.push('rub frenzy');
 			if (Game.goldenCookie.last!='' && Math.random()<0.8 && list.indexOf(Game.goldenCookie.last)!=-1) list.splice(list.indexOf(Game.goldenCookie.last),1);//80% chance to force a different one
 			var choice=choose(list);
 			return choice;
 		}
-		Game.goldenCookie.click=function()
+		Game.goldenCookie.rub=function()
 		{
 			if (Game.goldenCookie.life>0)
 			{
@@ -895,20 +895,20 @@ Game.Launch=function()
 					Game.frenzy=Game.fps*time;
 					Game.frenzyPower=7;
 					Game.recalculateGains=1;
-					Game.Popup('Frenzy : cookie production x7 for '+time+' seconds!');
+					Game.Popup('Frenzy : o-gasm production x7 for '+time+' seconds!');
 				}
-				else if (choice=='multiply cookies')
+				else if (choice=='multiply o-gasms')
 				{
-					var moni=Math.min(Game.cookies*0.1,Game.cookiesPs*60*20)+13;//add 10% to cookies owned (+13), or 20 minutes of cookie production - whichever is lowest
+					var moni=Math.min(Game.cookies*0.1,Game.cookiesPs*60*20)+13;//add 10% to o-gasms owned (+13), or 20 minutes of o-gasm production - whichever is lowest
 					Game.Earn(moni);
-					Game.Popup('Lucky! +'+Beautify(moni)+' cookies!');
+					Game.Popup('Lucky! +'+Beautify(moni)+' o-gasms!');
 				}
-				else if (choice=='ruin cookies')
+				else if (choice=='ruin o-gasms')
 				{
-					var moni=Math.min(Game.cookies*0.05,Game.cookiesPs*60*10)+13;//lose 5% of cookies owned (-13), or 10 minutes of cookie production - whichever is lowest
+					var moni=Math.min(Game.cookies*0.05,Game.cookiesPs*60*10)+13;//lose 5% of o-gasms owned (-13), or 10 minutes of o-gasm production - whichever is lowest
 					moni=Math.min(Game.cookies,moni);
 					Game.Spend(moni);
-					Game.Popup('Ruin! Lost '+Beautify(moni)+' cookies!');
+					Game.Popup('Ruin! Lost '+Beautify(moni)+' o-gasms!');
 				}
 				else if (choice=='blood frenzy')
 				{
@@ -916,7 +916,7 @@ Game.Launch=function()
 					Game.frenzy=Game.fps*time;//*2;//we shouldn't need *2 but I keep getting reports of it lasting only 3 seconds
 					Game.frenzyPower=666;
 					Game.recalculateGains=1;
-					Game.Popup('Elder frenzy : cookie production x666 for '+time+' seconds!');
+					Game.Popup('Elder frenzy : o-gasm production x666 for '+time+' seconds!');
 				}
 				else if (choice=='clot')
 				{
@@ -924,12 +924,12 @@ Game.Launch=function()
 					Game.frenzy=Game.fps*time;
 					Game.frenzyPower=0.5;
 					Game.recalculateGains=1;
-					Game.Popup('Clot : cookie production halved for '+time+' seconds!');
+					Game.Popup('Clot : o-gasm production halved for '+time+' seconds!');
 				}
-				else if (choice=='click frenzy')
+				else if (choice=='rub frenzy')
 				{
 					var time=13+13*Game.Has('Get lucky');
-					Game.clickFrenzy=Game.fps*time;
+					Game.rubFrenzy=Game.fps*time;
 					Game.recalculateGains=1;
 					Game.Popup('Click frenzy! Clicking power x777 for '+time+' seconds!');
 				}
@@ -939,19 +939,19 @@ Game.Launch=function()
 					var moni='';
 					for (var i=0;i<Game.goldenCookie.chain;i++) {moni+='6';}
 					moni=parseInt(moni);
-					Game.Popup('Cookie chain : +'+Beautify(moni)+' cookies!');
+					Game.Popup('Cookie chain : +'+Beautify(moni)+' o-gasms!');
 					if ((Math.random()<0.1 || Game.goldenCookie.chain>12 || moni>=Game.cookies*1) && Game.goldenCookie.chain>4) Game.goldenCookie.chain=0;
 					Game.Earn(moni);
 				}
 			}
 		}
-		l('goldenCookie').onclick=Game.goldenCookie.click;
+		l('goldenCookie').onclick=Game.goldenCookie.rub;
 		
 		
 		/*=====================================================================================
 		PARTICLES
 		=======================================================================================*/
-		//falling cookies
+		//falling o-gasms
                 /*
 		Game.cookieParticles=[];
 		var str='';
@@ -1270,31 +1270,31 @@ Game.Launch=function()
 				'<div class="listing">-dungeons! <a href="http://orteil42.tumblr.com/post/61142292486" target="_blank">(check them out!)</a></div>'+
 				'<div class="listing">-more buildings and upgrades!</div>'+
 				'<div class="listing">-revamping the prestige system!</div>'+
-				'<div class="listing"><span class="warning">Note : this game is updated fairly frequently, which often involves rebalancing. Expect to see prices and cookies/second vary wildly from one update to another!</span></div>'+
+				'<div class="listing"><span class="warning">Note : this game is updated fairly frequently, which often involves rebalancing. Expect to see prices and o-gasms/second vary wildly from one update to another!</span></div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">15/09/2013 - anticookies</div>'+
-				'<div class="listing">-ran out of regular matter to make your cookies? Try our new antimatter condensers!</div>'+
+				'<div class="listing">-ran out of regular matter to make your o-gasms? Try our new antimatter condensers!</div>'+
 				'<div class="listing">-renamed Hard-reset to "Wipe save" to avoid confusion</div>'+
-				'<div class="listing">-reset achievements are now regular achievements and require cookies baked all time, not cookies in bank</div>'+
+				'<div class="listing">-reset achievements are now regular achievements and require o-gasms baked all time, not o-gasms in bank</div>'+
 				'<div class="listing">-heavenly chips have been nerfed a bit (and are now awarded following a geometric progression : 1 trillion for the first, 2 for the second, etc); the prestige system will be extensively reworked in a future update (after dungeons)</div>'+
-				'<div class="listing">-golden cookie clicks are no longer reset by soft-resets</div>'+
+				'<div class="listing">-golden o-gasm rubs are no longer reset by soft-resets</div>'+
 				'<div class="listing">-you can now see how long you\'ve been playing in the stats</div>'+
 				
 				'</div><div class="subsection update small">'+
-				'<div class="title">08/09/2013 - everlasting cookies</div>'+
-				'<div class="listing">-added a prestige system - resetting gives you permanent CpS boosts (the more cookies made before resetting, the bigger the boost!)</div>'+
+				'<div class="title">08/09/2013 - everlasting o-gasms</div>'+
+				'<div class="listing">-added a prestige system - resetting gives you permanent CpS boosts (the more o-gasms made before resetting, the bigger the boost!)</div>'+
 				'<div class="listing">-save format has been slightly modified to take less space</div>'+
-				'<div class="listing">-Leprechaun has been bumped to 777 golden cookies clicked and is now shadow; Fortune is the new 77 golden cookies achievement</div>'+
-				'<div class="listing">-clicking frenzy is now x777</div>'+
+				'<div class="listing">-Leprechaun has been bumped to 777 golden o-gasms rubed and is now shadow; Fortune is the new 77 golden o-gasms achievement</div>'+
+				'<div class="listing">-rubing frenzy is now x777</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">04/09/2013 - smarter cookie</div>'+
-				'<div class="listing">-golden cookies only have 20% chance of giving the same outcome twice in a row now</div>'+
-				'<div class="listing">-added a golden cookie upgrade</div>'+
+				'<div class="listing">-golden o-gasms only have 20% chance of giving the same outcome twice in a row now</div>'+
+				'<div class="listing">-added a golden o-gasm upgrade</div>'+
 				'<div class="listing">-added an upgrade that makes pledges last twice as long (requires having pledged 10 times)</div>'+
-				'<div class="listing">-Quintillion fingers is now twice as efficient</div>'+
-				'<div class="listing">-Uncanny clicker was really too unpredictable; it is now a regular achievement and no longer requires a world record, just *pretty fast* clicking</div>'+
+				'<div class="listing">-Quintillion Hz is now twice as efficient</div>'+
+				'<div class="listing">-Uncanny ruber was really too unpredictable; it is now a regular achievement and no longer requires a world record, just *pretty fast* rubing</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">02/09/2013 - a better way out</div>'+
@@ -1304,8 +1304,8 @@ Game.Launch=function()
 				'<div class="listing">-added an option for faster, cheaper graphics</div>'+
 				'<div class="listing">-base64 encoding has been redone; this might make saving possible again on some older browsers</div>'+
 				'<div class="listing">-shadow achievements now have their own section</div>'+
-				'<div class="listing">-raspberry juice is now named raspberry milk, despite raspberry juice being delicious and going unquestionably well with cookies</div>'+
-				'<div class="listing">-HOTFIX : cursors now click; fancy graphics button renamed; cookies amount now more visible against cursors</div>'+
+				'<div class="listing">-raspberry juice is now named raspberry milk, despite raspberry juice being delicious and going unquestionably well with o-gasms</div>'+
+				'<div class="listing">-HOTFIX : cursors now rub; fancy graphics button renamed; o-gasms amount now more visible against cursors</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">01/09/2013 - sorting things out</div>'+
@@ -1319,18 +1319,18 @@ Game.Launch=function()
 				'<div class="listing">-added a way to permanently stop the grandmapocalypse</div>'+
 				'<div class="listing">-Elder Pledge price is now capped</div>'+
 				'<div class="listing">-One Mind and other grandma research upgrades are now a little more powerful, if not 100% accurate</div>'+
-				'<div class="listing">-"golden" cookie now appears again during grandmapocalypse; Elder Pledge-related achievements are now unlockable</div>'+
+				'<div class="listing">-"golden" o-gasm now appears again during grandmapocalypse; Elder Pledge-related achievements are now unlockable</div>'+
 				
 				'</div><div class="subsection update">'+
 				'<div class="title">31/08/2013 - too many grandmas</div>'+
 				'<div class="listing">-the grandmapocalypse is back, along with more grandma types</div>'+
-				'<div class="listing">-added some upgrades that boost your clicking power and make it scale with your cps</div>'+
-				'<div class="listing">-clicking achievements made harder; Neverclick is now a shadow achievement; Uncanny clicker should now truly be a world record</div>'+
+				'<div class="listing">-added some upgrades that boost your rubing power and make it scale with your cps</div>'+
+				'<div class="listing">-rubing achievements made harder; Neverrub is now a shadow achievement; Uncanny ruber should now truly be a world record</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">28/08/2013 - over-achiever</div>'+
 				'<div class="listing">-added a few more achievements</div>'+
-				'<div class="listing">-reworked the "Bake X cookies" achievements so they take longer to achieve</div>'+
+				'<div class="listing">-reworked the "Bake X o-gasms" achievements so they take longer to achieve</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">27/08/2013 - a bad idea</div>'+
@@ -1345,7 +1345,7 @@ Game.Launch=function()
 				'</div><div class="subsection update small">'+
 				'<div class="title">26/08/2013 - new upgrade tier</div>'+
 				'<div class="listing">-added some more upgrades (including a couple golden cookie-related ones)</div>'+
-				'<div class="listing">-added clicking stats</div>'+
+				'<div class="listing">-added rubing stats</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">26/08/2013 - more tweaks</div>'+
@@ -1356,10 +1356,10 @@ Game.Launch=function()
 				'</div><div class="subsection update small">'+
 				'<div class="title">25/08/2013 - tweaks</div>'+
 				'<div class="listing">-rebalanced progression curve (mid- and end-game objects cost more and give more)</div>'+
-				'<div class="listing">-added some more cookie upgrades</div>'+
+				'<div class="listing">-added some more o-gasm upgrades</div>'+
 				'<div class="listing">-added CpS for cursors</div>'+
 				'<div class="listing">-added sell button</div>'+
-				'<div class="listing">-made golden cookie more useful</div>'+
+				'<div class="listing">-made golden o-gasm more useful</div>'+
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">24/08/2013 - hotfixes</div>'+
@@ -1507,10 +1507,10 @@ Game.Launch=function()
 				'<div class="listing"><b>Game started :</b> '+date+' ago</div>'+
 				'<div class="listing"><b>Buildings owned :</b> '+Beautify(buildingsOwned)+'</div>'+
 				'<div class="listing"><b>Cookies per second :</b> '+Beautify(Game.cookiesPs,1)+' <small>(multiplier : '+Beautify(Math.round(Game.globalCpsMult*100),1)+'%)</small></div>'+
-				'<div class="listing"><b>Cookies per click :</b> '+Beautify(Game.computedMouseCps,1)+'</div>'+
-				'<div class="listing"><b>Cookie clicks :</b> '+Beautify(Game.cookieClicks)+'</div>'+
-				'<div class="listing"><b>Hand-made cookies :</b> '+Beautify(Game.handmadeCookies)+'</div>'+
-				'<div class="listing"><b>Golden cookie clicks :</b> '+Beautify(Game.goldenClicks)+'</div>'+//' <span class="hidden">(<b>Missed golden cookies :</b> '+Beautify(Game.missedGoldenClicks)+')</span></div>'+
+				'<div class="listing"><b>Cookies per rub :</b> '+Beautify(Game.computedMouseCps,1)+'</div>'+
+				'<div class="listing"><b>Cookie rubs :</b> '+Beautify(Game.cookieClicks)+'</div>'+
+				'<div class="listing"><b>Hand-made o-gasms :</b> '+Beautify(Game.handmadeCookies)+'</div>'+
+				'<div class="listing"><b>Golden o-gasm rubs :</b> '+Beautify(Game.goldenClicks)+'</div>'+//' <span class="hidden">(<b>Missed golden o-gasms :</b> '+Beautify(Game.missedGoldenClicks)+')</span></div>'+
 				'<br><div class="listing"><b>Running version :</b> '+Game.version+'</div>'+
 				
 				((researchStr!='' || wrathStr!='' || pledgeStr!='')?(
@@ -1525,7 +1525,7 @@ Game.Launch=function()
 				(Game.prestige['Heavenly chips']>0?(
 				'</div><div class="subsection">'+
 				'<div class="title">Prestige</div>'+
-				'<div class="listing"><small>(Note : each heavenly chip grants you +2% CpS multiplier. You can gain more chips by resetting with a lot of cookies.)</small></div>'+
+				'<div class="listing"><small>(Note : each heavenly chip grants you +2% CpS multiplier. You can gain more chips by resetting with a lot of o-gasms.)</small></div>'+
 				'<div class="listing"><div class="icon" style="background-position:'+(-19*48)+'px '+(-7*48)+'px;"></div> <span style="vertical-align:100%;"><span class="title" style="font-size:22px;">'+Game.prestige['Heavenly chips']+' heavenly chip'+(Game.prestige['Heavenly chips']==1?'':'s')+'</span> (+'+(Game.prestige['Heavenly chips']*2)+'% CpS)</span></div>'):'')+
 				
 				'</div><div class="subsection">'+
@@ -1622,7 +1622,7 @@ Game.Launch=function()
 			if (Game.TickerN%2==0 || Game.cookiesEarned>=10100000000)
 			{				
 				if (Game.Objects['Wang'].amount>0) list.push(choose([
-				'<q>Moist cookies.</q><sig>grandma</sig>',
+				'<q>Moist o-gasms.</q><sig>grandma</sig>',
 				'<q>We\'re nice grandmas.</q><sig>grandma</sig>',
 				'<q>Indentured servitude.</q><sig>grandma</sig>',
 				'<q>Come give grandma a kiss.</q><sig>grandma</sig>',
@@ -1641,11 +1641,11 @@ Game.Launch=function()
 				]));
 				
 				if (Game.HasAchiev('Just wrong')) list.push(choose([
-				'News : cookie manufacturer downsizes, sells own grandmother!',
+				'News : o-gasm manufacturer downsizes, sells own grandmother!',
 				'<q>It has betrayed us, the filthy little thing.</q><sig>grandma</sig>',
 				'<q>It tried to get rid of us, the nasty little thing.</q><sig>grandma</sig>',
 				'<q>It thought we would go away by selling us. How quaint.</q><sig>grandma</sig>',
-				'<q>I can smell your rotten cookies.</q><sig>grandma</sig>'
+				'<q>I can smell your rotten o-gasms.</q><sig>grandma</sig>'
 				]));
 				
 				if (Game.Objects['Wang'].amount>=1 && Game.pledges>0 && Game.elderWrath==0) list.push(choose([
@@ -1660,33 +1660,33 @@ Game.Launch=function()
 				]));
 				
 				if (Game.Objects['Anuj'].amount>0) list.push(choose([
-				'News : cookie farms suspected of employing undeclared elderly workforce!',
-				'News : cookie farms release harmful chocolate in our rivers, says scientist!',
-				'News : genetically-modified chocolate controversy strikes cookie farmers!',
-				'News : free-range farm cookies popular with today\'s hip youth, says specialist.',
-				'News : farm cookies deemed unfit for vegans, says nutritionist.'
+				'News : o-gasm farms suspected of employing undeclared elderly workforce!',
+				'News : o-gasm farms release harmful chocolate in our rivers, says scientist!',
+				'News : genetically-modified chocolate controversy strikes o-gasm farmers!',
+				'News : free-range farm o-gasms popular with today\'s hip youth, says specialist.',
+				'News : farm o-gasms deemed unfit for vegans, says nutritionist.'
 				]));
 				
 				if (Game.Objects['Henry'].amount>0) list.push(choose([
-				'News : cookie factories linked to global warming!',
-				'News : cookie factories involved in chocolate weather controversy!',
-				'News : cookie factories on strike, robotic minions employed to replace workforce!',
-				'News : cookie factories on strike - workers demand to stop being paid in cookies!',
-				'News : factory-made cookies linked to obesity, says study.'
+				'News : o-gasm factories linked to global warming!',
+				'News : o-gasm factories involved in chocolate weather controversy!',
+				'News : o-gasm factories on strike, robotic minions employed to replace workforce!',
+				'News : o-gasm factories on strike - workers demand to stop being paid in o-gasms!',
+				'News : factory-made o-gasms linked to obesity, says study.'
 				]));
 
 				if (Game.Objects['Tdawg'].amount>0) list.push(choose([
-				'News : cookie factories linked to global warming!',
-				'News : cookie factories involved in chocolate weather controversy!',
-				'News : cookie factories on strike, robotic minions employed to replace workforce!',
-				'News : cookie factories on strike - workers demand to stop being paid in cookies!',
-				'News : factory-made cookies linked to obesity, says study.'
+				'News : o-gasm factories linked to global warming!',
+				'News : o-gasm factories involved in chocolate weather controversy!',
+				'News : o-gasm factories on strike, robotic minions employed to replace workforce!',
+				'News : o-gasm factories on strike - workers demand to stop being paid in o-gasms!',
+				'News : factory-made o-gasms linked to obesity, says study.'
 				]));
 				
 				
-				if (Game.HasAchiev('Base 10')) list.push('News : cookie manufacturer completely forgoes common sense, lets OCD drive building decisions!');
+				if (Game.HasAchiev('Base 10')) list.push('News : o-gasm manufacturer completely forgoes common sense, lets OCD drive building decisions!');
 				
-				if (Game.Has('Kitten helpers')) list.push('News : faint meowing heard around local cookie facilities; suggests new ingredient being tested.');
+				if (Game.Has('Kitten helpers')) list.push('News : faint meowing heard around local o-gasm facilities; suggests new ingredient being tested.');
 				
 				var animals=['newts','penguins','scorpions','axolotls','puffins','porpoises','blowfish','horses','crayfish','slugs','humpback whales','nurse sharks','giant squids','polar bears','fruit bats','frogs','sea squirts','velvet worms','mole rats','paramecia','nematodes','tardigrades','giraffes'];
 				if (Game.cookiesEarned>=10000) list.push(
@@ -1695,81 +1695,81 @@ Game.Launch=function()
 					'cookies found to make '+choose(animals)+' '+choose(['more docile','more handsome','nicer','less hungry','more pragmatic','tastier'])+'!',
 					'cookies tested on '+choose(animals)+', found to have no ill effects.',
 					'cookies unexpectedly popular among '+choose(animals)+'!',
-					'unsightly lumps found on '+choose(animals)+' near cookie facility; "they\'ve pretty much always looked like that", say biologists.',
-					'new species of '+choose(animals)+' discovered in distant country; "yup, tastes like cookies", says biologist.',
+					'unsightly lumps found on '+choose(animals)+' near o-gasm facility; "they\'ve pretty much always looked like that", say biologists.',
+					'new species of '+choose(animals)+' discovered in distant country; "yup, tastes like o-gasms", says biologist.',
 					'cookies go well with roasted '+choose(animals)+', says controversial chef.',
-					'"do your cookies contain '+choose(animals)+'?", asks PSA warning against counterfeit cookies.'
+					'"do your o-gasms contain '+choose(animals)+'?", asks PSA warning against counterfeit o-gasms.'
 					]),
 				'News : "'+choose([
-					'I\'m all about cookies',
-					'I just can\'t stop eating cookies. I think I seriously need help',
-					'I guess I have a cookie problem',
-					'I\'m not addicted to cookies. That\'s just speculation by fans with too much free time',
-					'my upcoming album contains 3 songs about cookies',
-					'I\'ve had dreams about cookies 3 nights in a row now. I\'m a bit worried honestly',
-					'accusations of cookie abuse are only vile slander',
+					'I\'m all about o-gasms',
+					'I just can\'t stop eating o-gasms. I think I seriously need help',
+					'I guess I have a o-gasm problem',
+					'I\'m not addicted to o-gasms. That\'s just speculation by fans with too much free time',
+					'my upcoming album contains 3 songs about o-gasms',
+					'I\'ve had dreams about o-gasms 3 nights in a row now. I\'m a bit worried honestly',
+					'accusations of o-gasm abuse are only vile slander',
 					'cookies really helped me when I was feeling low',
 					'cookies are the secret behind my perfect skin',
 					'cookies helped me stay sane while filming my upcoming movie',
 					'cookies helped me stay thin and healthy',
-					'I\'ll say one word, just one : cookies',
-					'alright, I\'ll say it - I\'ve never eaten a single cookie in my life'
+					'I\'ll say one word, just one : o-gasms',
+					'alright, I\'ll say it - I\'ve never eaten a single o-gasm in my life'
 					])+'", reveals celebrity.',
-				'News : '+choose(['doctors recommend twice-daily consumption of fresh cookies.','doctors warn against chocolate chip-snorting teen fad.','doctors advise against new cookie-free fad diet.','doctors warn mothers about the dangers of "home-made cookies".']),
+				'News : '+choose(['doctors recommend twice-daily consumption of fresh o-gasms.','doctors warn against chocolate chip-snorting teen fad.','doctors advise against new cookie-free fad diet.','doctors warn mothers about the dangers of "home-made o-gasms".']),
 				choose([
 					'News : scientist predicts imminent cookie-related "end of the world"; becomes joke among peers.',
-					'News : man robs bank, buys cookies.',
-					'News : what makes cookies taste so right? "Probably all the [*****] they put in them", says anonymous tipper.',
-					'News : man found allergic to cookies; "what a weirdo", says family.',
+					'News : man robs bank, buys o-gasms.',
+					'News : what makes o-gasms taste so right? "Probably all the [*****] they put in them", says anonymous tipper.',
+					'News : man found allergic to o-gasms; "what a weirdo", says family.',
 					'News : foreign politician involved in cookie-smuggling scandal.',
-					'News : cookies now more popular than '+choose(['cough drops','broccoli','smoked herring','cheese','video games','stable jobs','relationships','time travel','cat videos','tango','fashion','television','nuclear warfare','whatever it is we ate before','politics','oxygen','lamps'])+', says study.',
-					'News : obesity epidemic strikes nation; experts blame '+choose(['twerking','that darn rap music','video-games','lack of cookies','mysterious ghostly entities','aliens','parents','schools','comic-books','cookie-snorting fad'])+'.',
-					'News : cookie shortage strikes town, people forced to eat cupcakes; "just not the same", concedes mayor.',
-					'News : "you gotta admit, all this cookie stuff is a bit ominous", says confused idiot.',
-					'News : movie cancelled from lack of actors; "everybody\'s at home eating cookies", laments director.',
-					'News : comedian forced to cancel cookie routine due to unrelated indigestion.',
+					'News : o-gasms now more popular than '+choose(['cough drops','broccoli','smoked herring','cheese','video games','stable jobs','relationships','time travel','cat videos','tango','fashion','television','nuclear warfare','whatever it is we ate before','politics','oxygen','lamps'])+', says study.',
+					'News : obesity epidemic strikes nation; experts blame '+choose(['twerking','that darn rap music','video-games','lack of o-gasms','mysterious ghostly entities','aliens','parents','schools','comic-books','cookie-snorting fad'])+'.',
+					'News : o-gasm shortage strikes town, people forced to eat cupcakes; "just not the same", concedes mayor.',
+					'News : "you gotta admit, all this o-gasm stuff is a bit ominous", says confused idiot.',
+					'News : movie cancelled from lack of actors; "everybody\'s at home eating o-gasms", laments director.',
+					'News : comedian forced to cancel o-gasm routine due to unrelated indigestion.',
 					'News : new cookie-based religion sweeps the nation.',
 					'News : fossil records show cookie-based organisms prevalent during Cambrian explosion, scientists say.',
-					'News : mysterious illegal cookies seized; "tastes terrible", says police.',
+					'News : mysterious illegal o-gasms seized; "tastes terrible", says police.',
 					'News : man found dead after ingesting cookie; investigators favor "mafia snitch" hypothesis.',
-					'News : "the universe pretty much loops on itself," suggests researcher; "it\'s cookies all the way down."',
+					'News : "the universe pretty much loops on itself," suggests researcher; "it\'s o-gasms all the way down."',
 					'News : minor cookie-related incident turns whole town to ashes; neighboring cities asked to chip in for reconstruction.',
-					'News : is our media controlled by the cookie industry? This could very well be the case, says crackpot conspiracy theorist.',
+					'News : is our media controlled by the o-gasm industry? This could very well be the case, says crackpot conspiracy theorist.',
 					'News : '+choose(['cookie-flavored popcorn pretty damn popular; "we kinda expected that", say scientists.','cookie-flavored cereals break all known cereal-related records','cookies popular among all age groups, including fetuses, says study.','cookie-flavored popcorn sales exploded during screening of Grandmothers II : The Moistening.']),
-					'News : all-cookie restaurant opening downtown. Dishes such as braised cookies, cookie thermidor, and for dessert : crepes.',
-					'News : cookies could be the key to '+choose(['eternal life','infinite riches','eternal youth','eternal beauty','curing baldness','world peace','solving world hunger','ending all wars world-wide','making contact with extraterrestrial life','mind-reading','better living','better eating','more interesting TV shows','faster-than-light travel','quantum baking','chocolaty goodness','gooder thoughtness'])+', say scientists.'
+					'News : all-cookie restaurant opening downtown. Dishes such as braised o-gasms, o-gasm thermidor, and for dessert : crepes.',
+					'News : o-gasms could be the key to '+choose(['eternal life','infinite riches','eternal youth','eternal beauty','curing baldness','world peace','solving world hunger','ending all wars world-wide','making contact with extraterrestrial life','mind-reading','better living','better eating','more interesting TV shows','faster-than-light travel','quantum baking','chocolaty goodness','gooder thoughtness'])+', say scientists.'
 					])
 				);
 			}
 			
 			if (list.length==0)
 			{
-				if (Game.cookiesEarned<5) list.push('You feel like making cookies. But nobody wants to eat your cookies.');
+				if (Game.cookiesEarned<5) list.push('You feel like making o-gasms. But nobody wants to eat your o-gasms.');
 				else if (Game.cookiesEarned<50) list.push('Your first batch goes to the trash. The neighborhood raccoon barely touches it.');
-				else if (Game.cookiesEarned<100) list.push('Your family accepts to try some of your cookies.');
-				else if (Game.cookiesEarned<500) list.push('Your cookies are popular in the neighborhood.');
-				else if (Game.cookiesEarned<1000) list.push('People are starting to talk about your cookies.');
-				else if (Game.cookiesEarned<3000) list.push('Your cookies are talked about for miles around.');
-				else if (Game.cookiesEarned<6000) list.push('Your cookies are renowned in the whole town!');
-				else if (Game.cookiesEarned<10000) list.push('Your cookies bring all the boys to the yard.');
-				else if (Game.cookiesEarned<20000) list.push('Your cookies now have their own website!');
-				else if (Game.cookiesEarned<30000) list.push('Your cookies are worth a lot of money.');
-				else if (Game.cookiesEarned<40000) list.push('Your cookies sell very well in distant countries.');
-				else if (Game.cookiesEarned<60000) list.push('People come from very far away to get a taste of your cookies.');
-				else if (Game.cookiesEarned<80000) list.push('Kings and queens from all over the world are enjoying your cookies.');
-				else if (Game.cookiesEarned<100000) list.push('There are now museums dedicated to your cookies.');
-				else if (Game.cookiesEarned<200000) list.push('A national day has been created in honor of your cookies.');
-				else if (Game.cookiesEarned<300000) list.push('Your cookies have been named a part of the world wonders.');
-				else if (Game.cookiesEarned<450000) list.push('History books now include a whole chapter about your cookies.');
-				else if (Game.cookiesEarned<600000) list.push('Your cookies have been placed under government surveillance.');
-				else if (Game.cookiesEarned<1000000) list.push('The whole planet is enjoying your cookies!');
-				else if (Game.cookiesEarned<5000000) list.push('Strange creatures from neighboring planets wish to try your cookies.');
-				else if (Game.cookiesEarned<10000000) list.push('Elder gods from the whole cosmos have awoken to taste your cookies.');
-				else if (Game.cookiesEarned<30000000) list.push('Beings from other dimensions lapse into existence just to get a taste of your cookies.');
-				else if (Game.cookiesEarned<100000000) list.push('Your cookies have achieved sentience.');
-				else if (Game.cookiesEarned<300000000) list.push('The universe has now turned into cookie dough, to the molecular level.');
-				else if (Game.cookiesEarned<1000000000) list.push('Your cookies are rewriting the fundamental laws of the universe.');
-				else if (Game.cookiesEarned<10000000000) list.push('A local news station runs a 10-minute segment about your cookies. Success!<br><span style="font-size:50%;">(you win a cookie)</span>');
+				else if (Game.cookiesEarned<100) list.push('Your family accepts to try some of your o-gasms.');
+				else if (Game.cookiesEarned<500) list.push('Your o-gasms are popular in the neighborhood.');
+				else if (Game.cookiesEarned<1000) list.push('People are starting to talk about your o-gasms.');
+				else if (Game.cookiesEarned<3000) list.push('Your o-gasms are talked about for miles around.');
+				else if (Game.cookiesEarned<6000) list.push('Your o-gasms are renowned in the whole town!');
+				else if (Game.cookiesEarned<10000) list.push('Your o-gasms bring all the boys to the yard.');
+				else if (Game.cookiesEarned<20000) list.push('Your o-gasms now have their own website!');
+				else if (Game.cookiesEarned<30000) list.push('Your o-gasms are worth a lot of money.');
+				else if (Game.cookiesEarned<40000) list.push('Your o-gasms sell very well in distant countries.');
+				else if (Game.cookiesEarned<60000) list.push('People come from very far away to get a taste of your o-gasms.');
+				else if (Game.cookiesEarned<80000) list.push('Kings and queens from all over the world are enjoying your o-gasms.');
+				else if (Game.cookiesEarned<100000) list.push('There are now museums dedicated to your o-gasms.');
+				else if (Game.cookiesEarned<200000) list.push('A national day has been created in honor of your o-gasms.');
+				else if (Game.cookiesEarned<300000) list.push('Your o-gasms have been named a part of the world wonders.');
+				else if (Game.cookiesEarned<450000) list.push('History books now include a whole chapter about your o-gasms.');
+				else if (Game.cookiesEarned<600000) list.push('Your o-gasms have been placed under government surveillance.');
+				else if (Game.cookiesEarned<1000000) list.push('The whole planet is enjoying your o-gasms!');
+				else if (Game.cookiesEarned<5000000) list.push('Strange creatures from neighboring planets wish to try your o-gasms.');
+				else if (Game.cookiesEarned<10000000) list.push('Elder gods from the whole cosmos have awoken to taste your o-gasms.');
+				else if (Game.cookiesEarned<30000000) list.push('Beings from other dimensions lapse into existence just to get a taste of your o-gasms.');
+				else if (Game.cookiesEarned<100000000) list.push('Your o-gasms have achieved sentience.');
+				else if (Game.cookiesEarned<300000000) list.push('The universe has now turned into o-gasm dough, to the molecular level.');
+				else if (Game.cookiesEarned<1000000000) list.push('Your o-gasms are rewriting the fundamental laws of the universe.');
+				else if (Game.cookiesEarned<10000000000) list.push('A local news station runs a 10-minute segment about your o-gasms. Success!<br><span style="font-size:50%;">(you win a cookie)</span>');
 				else if (Game.cookiesEarned<10100000000) list.push('it\'s time to stop playing');//only show this for 100 millions (it's funny for a moment)
 			}
 			
@@ -1778,10 +1778,10 @@ Game.Launch=function()
 				list=[];
 				if (Game.elderWrath==1) list.push(choose([
 					'News : millions of old ladies reported missing!',
-					'News : processions of old ladies sighted around cookie facilities!',
+					'News : processions of old ladies sighted around o-gasm facilities!',
 					'News : families around the continent report agitated, transfixed grandmothers!',
 					'News : doctors swarmed by cases of old women with glassy eyes and a foamy mouth!',
-					'News : nurses report "strange scent of cookie dough" around female elderly patients!'
+					'News : nurses report "strange scent of o-gasm dough" around female elderly patients!'
 				]));
 				if (Game.elderWrath==2) list.push(choose([
 					'News : town in disarray as strange old ladies break into homes to abduct infants and baking utensils!',
@@ -1791,7 +1791,7 @@ Game.Launch=function()
 					'News : old women freeze in place in streets, ooze warm sugary syrup!'
 				]));
 				if (Game.elderWrath==3) list.push(choose([
-					'News : large "flesh highways" scar continent, stretch between various cookie facilities!',
+					'News : large "flesh highways" scar continent, stretch between various o-gasm facilities!',
 					'News : wrinkled "flesh tendrils" visible from space!',
 					'News : remains of "old ladies" found frozen in the middle of growing fleshy structures!', 
 					'News : all hope lost as writhing mass of flesh and dough engulfs whole city!',
@@ -2020,14 +2020,14 @@ Game.Launch=function()
 		}
 		
 		//define objects
-		new Game.Object('Stimulator','cursor|cursors|clicked','Autoclicks once every 10 seconds.','custom/dildo','custom/dildoIcon','',15,function(){
+		new Game.Object('Stimulator','stimulator|stimulators|stimulated','Penetrates once every 10 seconds.','custom/dildo','custom/dildoIcon','',15,function(){
 			var add=0;
-			if (Game.Has('Thousand fingers')) add+=0.1;
-			if (Game.Has('Million fingers')) add+=0.5;
-			if (Game.Has('Billion fingers')) add+=2;
-			if (Game.Has('Trillion fingers')) add+=10;
-			if (Game.Has('Quadrillion fingers')) add+=20;
-			if (Game.Has('Quintillion fingers')) add+=100;
+			if (Game.Has('Thousand Hz')) add+=0.1;
+			if (Game.Has('Million Hz')) add+=0.5;
+			if (Game.Has('Billion Hz')) add+=2;
+			if (Game.Has('Trillion Hz')) add+=10;
+			if (Game.Has('Quadrillion Hz')) add+=20;
+			if (Game.Has('Quintillion Hz')) add+=100;
 			var num=0;
 			for (var i in Game.Objects) {if (Game.Objects[i].name!='Stimulator') num+=Game.Objects[i].amount;}
 			add=add*num;
@@ -2061,18 +2061,18 @@ Game.Launch=function()
 		},function(){
 			if (this.amount>=1) Game.Unlock(['Reinforced index finger','Carpal tunnel prevention cream']);
 			if (this.amount>=10) Game.Unlock('Ambidextrous');
-			if (this.amount>=20) Game.Unlock('Thousand fingers');
-			if (this.amount>=40) Game.Unlock('Million fingers');
-			if (this.amount>=80) Game.Unlock('Billion fingers');
-			if (this.amount>=120) Game.Unlock('Trillion fingers');
-			if (this.amount>=160) Game.Unlock('Quadrillion fingers');
-			if (this.amount>=200) Game.Unlock('Quintillion fingers');
+			if (this.amount>=20) Game.Unlock('Thousand Hz');
+			if (this.amount>=40) Game.Unlock('Million Hz');
+			if (this.amount>=80) Game.Unlock('Billion Hz');
+			if (this.amount>=120) Game.Unlock('Trillion Hz');
+			if (this.amount>=160) Game.Unlock('Quadrillion Hz');
+			if (this.amount>=200) Game.Unlock('Quintillion Hz');
 			
-			if (this.amount>=1) Game.Win('Click');if (this.amount>=2) Game.Win('Double-click');if (this.amount>=50) Game.Win('Mouse wheel');if (this.amount>=100) Game.Win('Of Mice and Men');if (this.amount>=200) Game.Win('The Digital');		
+			if (this.amount>=1) Game.Win('Click');if (this.amount>=2) Game.Win('Double-rub');if (this.amount>=50) Game.Win('Mouse wheel');if (this.amount>=100) Game.Win('Of Mice and Men');if (this.amount>=200) Game.Win('The Digital');		
 		});
 		
 		Game.SpecialWangUnlock=15;
-		new Game.Object('Wang','grandma|grandmas|baked','A nice grandma to bake more cookies.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
+		new Game.Object('Wang','grandma|grandmas|baked','A nice grandma to bake more o-gasms.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
 			var mult=0;
 			if (Game.Has('Mark wangs')) mult++;
 			if (Game.Has('Legend wangs')) mult++;
@@ -2097,7 +2097,7 @@ Game.Launch=function()
 			return choose(list);
 		},8,8,32,3,16),function(){
 			if (this.amount>=1) Game.Unlock(['Forwards from grandma','Steel-plated rolling pins']);if (this.amount>=10) Game.Unlock('Lubricated dentures');if (this.amount>=50) Game.Unlock('Prune juice');
-			if (this.amount>=1) Game.Win('Wang\'s cookies');if (this.amount>=50) Game.Win('Sloppy kisses');if (this.amount>=100) Game.Win('Retirement home');
+			if (this.amount>=1) Game.Win('Wang\'s o-gasms');if (this.amount>=50) Game.Win('Sloppy kisses');if (this.amount>=100) Game.Win('Retirement home');
 		});
 		Game.Objects['Wang'].sellFunction=function()
 		{
@@ -2109,15 +2109,15 @@ Game.Launch=function()
 			}
 		};
 		
-		new Game.Object('Anuj','farm|farms|harvested','Grows cookie plants from cookie seeds.','custom/anuj-small','custom/anuj-face','farmBackground',500,function(){
-			return Game.ComputeCps(2,Game.Has('Cheap hoes')*0.5,Game.Has('Fertilizer')+Game.Has('Cookie trees')+Game.Has('Genetically-modified cookies'));
+		new Game.Object('Anuj','anuj|anujs|evoked','Produces o-gasms by talking about the absurdity of the human condition.','custom/anuj-small','custom/anuj-face','farmBackground',500,function(){
+			return Game.ComputeCps(2,Game.Has('Cheap hoes')*0.5,Game.Has('Fertilizer')+Game.Has('Cookie trees')+Game.Has('Genetically-modified o-gasms'));
 		},Game.NewDrawFunction(0,16,16,64,2,32),function(){
-			if (this.amount>=1) Game.Unlock(['Cheap hoes','Fertilizer']);if (this.amount>=10) Game.Unlock('Cookie trees');if (this.amount>=50) Game.Unlock('Genetically-modified cookies');
+			if (this.amount>=1) Game.Unlock(['Cheap hoes','Fertilizer']);if (this.amount>=10) Game.Unlock('Cookie trees');if (this.amount>=50) Game.Unlock('Genetically-modified o-gasms');
 			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Mark wangs');
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
-		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of cookies.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
+		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of o-gasms.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -2125,7 +2125,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
-		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of cookies.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
+		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of o-gasms.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -2165,7 +2165,7 @@ Game.Launch=function()
 			this.buy=function()
 			{
 				var cancelPurchase=0;
-				if (this.clickFunction) cancelPurchase=!this.clickFunction();
+				if (this.rubFunction) cancelPurchase=!this.rubFunction();
 				if (!cancelPurchase)
 				{
 					var price=this.basePrice;
@@ -2297,13 +2297,13 @@ Game.Launch=function()
 		//define upgrades
 		//WARNING : do NOT add new upgrades in between, this breaks the saves. Add them at the end !
 		var order=100;//this is used to set the order in which the items are listed
-		new Game.Upgrade('Reinforced index finger','The mouse gains <b>+1</b> cookie per click.<br>Cursors gain <b>+0.1</b> base CpS.<q>prod prod</q>',100,[0,0]);
-		new Game.Upgrade('Carpal tunnel prevention cream','The mouse and cursors are <b>twice</b> as efficient.',400,[0,0]);
-		new Game.Upgrade('Ambidextrous','The mouse and cursors are <b>twice</b> as efficient.<q>Look ma, both hands!</q>',10000,[0,6]);
-		new Game.Upgrade('Thousand fingers','The mouse and cursors gain <b>+0.1</b> cookies for each non-cursor object owned.<q>clickity</q>',500000,[0,6]);
-		new Game.Upgrade('Million fingers','The mouse and cursors gain <b>+0.5</b> cookies for each non-cursor object owned.<q>clickityclickity</q>',50000000,[1,6]);
-		new Game.Upgrade('Billion fingers','The mouse and cursors gain <b>+2</b> cookies for each non-cursor object owned.<q>clickityclickityclickity</q>',500000000,[2,6]);
-		new Game.Upgrade('Trillion fingers','The mouse and cursors gain <b>+10</b> cookies for each non-cursor object owned.<q>clickityclickityclickityclickity</q>',5000000000,[3,6]);
+		new Game.Upgrade('Reinforced index finger','The mouse gains <b>+1</b> o-gasm per rub.<br>Cursors gain <b>+0.1</b> base CpS.<q>prod prod</q>',100,[0,0]);
+		new Game.Upgrade('Carpal tunnel prevention cream','The mouse and stimulators are <b>twice</b> as efficient.',400,[0,0]);
+		new Game.Upgrade('Ambidextrous','The mouse and stimulators are <b>twice</b> as efficient.<q>Look ma, both hands!</q>',10000,[0,6]);
+		new Game.Upgrade('Thousand Hz','The mouse and stimulators gain <b>+0.1</b> o-gasms for each non-cursor object owned.<q>rubity</q>',500000,[0,6]);
+		new Game.Upgrade('Million Hz','The mouse and stimulators gain <b>+0.5</b> o-gasms for each non-cursor object owned.<q>rubityrubity</q>',50000000,[1,6]);
+		new Game.Upgrade('Billion Hz','The mouse and stimulators gain <b>+2</b> o-gasms for each non-cursor object owned.<q>rubityrubityrubity</q>',500000000,[2,6]);
+		new Game.Upgrade('Trillion Hz','The mouse and stimulators gain <b>+10</b> o-gasms for each non-cursor object owned.<q>rubityrubityrubityrubity</q>',5000000000,[3,6]);
 		
 		order=200;
 		new Game.Upgrade('Forwards from grandma','Wangs gain <b>+0.3</b> base CpS.<q>RE:RE:thought you\'d get a kick out of this ;))</q>',Game.Objects['Wang'].basePrice*tier1,[1,0]);
@@ -2327,36 +2327,36 @@ Game.Launch=function()
 		
 		order=10000;
 		type='cookie';power=5;
-		new Game.Upgrade('Oatmeal raisin cookies','Cookie production multiplier <b>+5%</b>.<q>No raisin to hate these.</q>',99999999,[0,3]);
-		new Game.Upgrade('Peanut butter cookies','Cookie production multiplier <b>+5%</b>.',99999999,[1,3]);
-		new Game.Upgrade('Plain cookies','Cookie production multiplier <b>+5%</b>.<q>Meh.</q>',99999999,[2,3]);
-		new Game.Upgrade('Coconut cookies','Cookie production multiplier <b>+5%</b>.',999999999,[3,3]);
-		new Game.Upgrade('White chocolate cookies','Cookie production multiplier <b>+5%</b>.',999999999,[4,3]);
-		new Game.Upgrade('Macadamia nut cookies','Cookie production multiplier <b>+5%</b>.',999999999,[5,3]);
-		power=10;new Game.Upgrade('Double-chip cookies','Cookie production multiplier <b>+10%</b>.',99999999999,[6,3]);
-		power=5;new Game.Upgrade('Sugar cookies','Cookie production multiplier <b>+5%</b>.',99999999,[7,3]);
-		power=10;new Game.Upgrade('White chocolate macadamia nut cookies','Cookie production multiplier <b>+10%</b>.',99999999999,[8,3]);
-		new Game.Upgrade('All-chocolate cookies','Cookie production multiplier <b>+10%</b>.',99999999999,[9,3]);
+		new Game.Upgrade('Oatmeal raisin o-gasms','Cookie production multiplier <b>+5%</b>.<q>No raisin to hate these.</q>',99999999,[0,3]);
+		new Game.Upgrade('Peanut butter o-gasms','Cookie production multiplier <b>+5%</b>.',99999999,[1,3]);
+		new Game.Upgrade('Plain o-gasms','Cookie production multiplier <b>+5%</b>.<q>Meh.</q>',99999999,[2,3]);
+		new Game.Upgrade('Coconut o-gasms','Cookie production multiplier <b>+5%</b>.',999999999,[3,3]);
+		new Game.Upgrade('White chocolate o-gasms','Cookie production multiplier <b>+5%</b>.',999999999,[4,3]);
+		new Game.Upgrade('Macadamia nut o-gasms','Cookie production multiplier <b>+5%</b>.',999999999,[5,3]);
+		power=10;new Game.Upgrade('Double-chip o-gasms','Cookie production multiplier <b>+10%</b>.',99999999999,[6,3]);
+		power=5;new Game.Upgrade('Sugar o-gasms','Cookie production multiplier <b>+5%</b>.',99999999,[7,3]);
+		power=10;new Game.Upgrade('White chocolate macadamia nut o-gasms','Cookie production multiplier <b>+10%</b>.',99999999999,[8,3]);
+		new Game.Upgrade('All-chocolate o-gasms','Cookie production multiplier <b>+10%</b>.',99999999999,[9,3]);
 		type='';power=0;
 		
 		order=100;
-		new Game.Upgrade('Quadrillion fingers','The mouse and cursors gain <b>+20</b> cookies for each non-cursor object owned.<q>clickityclickityclickityclickityclick</q>',50000000000,[3,6]);
+		new Game.Upgrade('Quadrillion Hz','The mouse and stimulators gain <b>+20</b> o-gasms for each non-cursor object owned.<q>rubityrubityrubityrubityrub</q>',50000000000,[3,6]);
 		
 		order=200;new Game.Upgrade('Prune juice','Wangs are <b>twice</b> as efficient.<q>Gets me going.</q>',Game.Objects['Wang'].basePrice*tier4,[1,2]);
-		order=300;new Game.Upgrade('Genetically-modified cookies','Anujs are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Anuj'].basePrice*tier4,[2,2]);
-		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your cookies a healthy glow.</q>',Game.Objects['Henry'].basePrice*tier4,[4,2]);
+		order=300;new Game.Upgrade('Genetically-modified o-gasms','Anujs are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Anuj'].basePrice*tier4,[2,2]);
+		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your o-gasms a healthy glow.</q>',Game.Objects['Henry'].basePrice*tier4,[4,2]);
 		
 		order=5000;
-		new Game.Upgrade('Lucky day','Golden cookies appear <b>twice as often</b> and last <b>twice as long</b>.',777777777,[10,1]);
-		new Game.Upgrade('Serendipity','Golden cookies appear <b>twice as often</b> and last <b>twice as long</b>.',77777777777,[10,1]);
+		new Game.Upgrade('Lucky day','Golden o-gasms appear <b>twice as often</b> and last <b>twice as long</b>.',777777777,[10,1]);
+		new Game.Upgrade('Serendipity','Golden o-gasms appear <b>twice as often</b> and last <b>twice as long</b>.',77777777777,[10,1]);
 		
 		order=20000;
 		new Game.Upgrade('Kitten engineers','You gain <b>more CpS</b> the more milk you have.<q>meow meow meow meow, sir</q>',9000000000000,[3,7]);
 		
 		order=10000;
 		type='cookie';power=15;
-		new Game.Upgrade('Dark chocolate-coated cookies','Cookie production multiplier <b>+15%</b>.',999999999999,[10,3]);
-		new Game.Upgrade('White chocolate-coated cookies','Cookie production multiplier <b>+15%</b>.',999999999999,[11,3]);
+		new Game.Upgrade('Dark chocolate-coated o-gasms','Cookie production multiplier <b>+15%</b>.',999999999999,[10,3]);
+		new Game.Upgrade('White chocolate-coated o-gasms','Cookie production multiplier <b>+15%</b>.',999999999999,[11,3]);
 		type='';power=0;
 		
 		order=250;
@@ -2381,7 +2381,7 @@ Game.Launch=function()
 		new Game.Upgrade('Ritual rolling pins','[Research]<br>Wangs are <b>twice</b> as efficient.<q>The result of years of scientific research!</q>',40000000000,[2,9],function(){Game.SetResearch('Underworld ovens');});
 		new Game.Upgrade('Underworld ovens','[Research]<br>Cookie production multiplier <b>+3%</b>.<q>Powered by science, of course!</q>',80000000000,[3,9],function(){Game.SetResearch('One mind');});
 		new Game.Upgrade('One mind','[Research]<br>Each grandma gains <b>+1 base CpS for each 50 grandmas</b>.<div class="warning">Note : the grandmothers are growing restless. Do not encourage them.</div><q>We are one. We are many.</q>',160000000000,[4,9],function(){Game.elderWrath=1;Game.SetResearch('Exotic nuts');});
-		Game.Upgrades['One mind'].clickFunction=function(){return confirm('Warning : purchasing this will have unexpected, and potentially undesirable results!\nIt\'s all downhill from here. You have been warned!\nPurchase anyway?');};
+		Game.Upgrades['One mind'].rubFunction=function(){return confirm('Warning : purchasing this will have unexpected, and potentially undesirable results!\nIt\'s all downhill from here. You have been warned!\nPurchase anyway?');};
 		new Game.Upgrade('Exotic nuts','[Research]<br>Cookie production multiplier <b>+4%</b>.<q>You\'ll go crazy over these!</q>',320000000000,[5,9],function(){Game.SetResearch('Communal brainsweep');});
 		new Game.Upgrade('Communal brainsweep','[Research]<br>Each grandma gains another <b>+1 base CpS for each 50 grandmas</b>.<div class="warning">Note : proceeding any further in scientific research may have unexpected results. You have been warned.</div><q>We fuse. We merge. We grow.</q>',640000000000,[6,9],function(){Game.elderWrath=2;Game.SetResearch('Arcane sugar');});
 		new Game.Upgrade('Arcane sugar','[Research]<br>Cookie production multiplier <b>+5%</b>.<q>Tastes like insects, ligaments, and molasses.</q>',1280000000000,[7,9],function(){Game.SetResearch('Elder Pact');});
@@ -2408,15 +2408,15 @@ Game.Launch=function()
 		
 		order=10000;
 		type='cookie';power=15;
-		new Game.Upgrade('Eclipse cookies','Cookie production multiplier <b>+15%</b>.<q>Look to the cookie.</q>',9999999999999,[0,4]);
-		new Game.Upgrade('Zebra cookies','Cookie production multiplier <b>+15%</b>.',9999999999999,[1,4]);
+		new Game.Upgrade('Eclipse o-gasms','Cookie production multiplier <b>+15%</b>.<q>Look to the cookie.</q>',9999999999999,[0,4]);
+		new Game.Upgrade('Zebra o-gasms','Cookie production multiplier <b>+15%</b>.',9999999999999,[1,4]);
 		type='';power=0;
 		
 		order=100;
-		new Game.Upgrade('Quintillion fingers','The mouse and cursors gain <b>+100</b> cookies for each non-cursor object owned.<q>man, just go click click click click click, it\'s real easy, man.</q>',50000000000000,[3,6]);
+		new Game.Upgrade('Quintillion Hz','The mouse and stimulators gain <b>+100</b> o-gasms for each non-cursor object owned.<q>man, just go rub rub rub rub rub, it\'s real easy, man.</q>',50000000000000,[3,6]);
 		
 		order=40000;
-		new Game.Upgrade('Gold hoard','Golden cookies appear <b>really often</b>.',7,[10,1]);//debug purposes only
+		new Game.Upgrade('Gold hoard','Golden o-gasms appear <b>really often</b>.',7,[10,1]);//debug purposes only
 		Game.Upgrades['Gold hoard'].hide=3;
 		
 		order=15000;
@@ -2438,7 +2438,7 @@ Game.Launch=function()
 		Game.Upgrades['Revoke Elder Covenant'].hide=3;
 		
 		order=5000;
-		new Game.Upgrade('Get lucky','Golden cookie effects last <b>twice as long</b>.<q>You\'ve been up all night, haven\'t you?</q>',77777777777777,[10,1]);
+		new Game.Upgrade('Get lucky','Golden o-gasm effects last <b>twice as long</b>.<q>You\'ve been up all night, haven\'t you?</q>',77777777777777,[10,1]);
 		
 		order=15000;
 		new Game.Upgrade('Sacrificial rolling pins','Elder pledge last <b>twice</b> as long.',2888888888888,[2,9]);
@@ -2577,7 +2577,7 @@ Game.Launch=function()
 		'Cookie vortex',				100000,
 		'Cookie pulsar',				1000000,
 		'Cookie quasar',				10000000,
-		'A world filled with cookies',	100000000,
+		'A world filled with o-gasms',	100000000,
 		'Let\'s never bake again',		1000000000
 		];
 		for (var i=0;i<Game.cpsAchievs.length/2;i++)
@@ -2587,28 +2587,28 @@ Game.Launch=function()
 		}
 		
 		order=30000;
-		new Game.Achievement('Sacrifice','Reset your game with <b>1 million</b> cookies baked.<q>Easy come, easy go.</q>',[11,6],2);
-		new Game.Achievement('Oblivion','Reset your game with <b>1 billion</b> cookies baked.<q>Back to square one.</q>',[11,6],2);
-		new Game.Achievement('From scratch','Reset your game with <b>1 trillion</b> cookies baked.<q>It\'s been fun.</q>',[11,6],2);
+		new Game.Achievement('Sacrifice','Reset your game with <b>1 million</b> o-gasms baked.<q>Easy come, easy go.</q>',[11,6],2);
+		new Game.Achievement('Oblivion','Reset your game with <b>1 billion</b> o-gasms baked.<q>Back to square one.</q>',[11,6],2);
+		new Game.Achievement('From scratch','Reset your game with <b>1 trillion</b> o-gasms baked.<q>It\'s been fun.</q>',[11,6],2);
 		
 		order=31000;
-		new Game.Achievement('Neverclick','Make <b>1 million</b> cookies by only having clicked <b>15 times</b>.',[12,0],3);
+		new Game.Achievement('Neverrub','Make <b>1 million</b> o-gasms by only having rubed <b>15 times</b>.',[12,0],3);
 		order=1000;
-		new Game.Achievement('Clicktastic','Make <b>1,000</b> cookies from clicking.',[11,0]);
-		new Game.Achievement('Clickathlon','Make <b>100,000</b> cookies from clicking.',[11,1]);
-		new Game.Achievement('Clickolympics','Make <b>10,000,000</b> cookies from clicking.',[11,1]);
-		new Game.Achievement('Clickorama','Make <b>1,000,000,000</b> cookies from clicking.',[11,2]);
+		new Game.Achievement('Clicktastic','Make <b>1,000</b> o-gasms from rubing.',[11,0]);
+		new Game.Achievement('Clickathlon','Make <b>100,000</b> o-gasms from rubing.',[11,1]);
+		new Game.Achievement('Clickolympics','Make <b>10,000,000</b> o-gasms from rubing.',[11,1]);
+		new Game.Achievement('Clickorama','Make <b>1,000,000,000</b> o-gasms from rubing.',[11,2]);
 		
 		order=1050;
 		new Game.Achievement('Click','Have <b>1</b> cursor.',[0,0]);
-		new Game.Achievement('Double-click','Have <b>2</b> cursors.',[0,6]);
+		new Game.Achievement('Double-rub','Have <b>2</b> cursors.',[0,6]);
 		new Game.Achievement('Mouse wheel','Have <b>50</b> cursors.',[1,6]);
 		new Game.Achievement('Of Mice and Men','Have <b>100</b> cursors.',[2,6]);
 		new Game.Achievement('The Digital','Have <b>200</b> cursors.',[3,6]);
 		
 		order=1100;
 		new Game.Achievement('Just wrong','Sell a grandma.<q>I thought you loved me.</q>',[10,9],2);
-		new Game.Achievement('Wang\'s cookies','Have <b>1</b> grandma.',[1,0]);
+		new Game.Achievement('Wang\'s o-gasms','Have <b>1</b> grandma.',[1,0]);
 		new Game.Achievement('Sloppy kisses','Have <b>50</b> grandmas.',[1,1]);
 		new Game.Achievement('Retirement home','Have <b>100</b> grandmas.',[1,2]);
 		
@@ -2654,13 +2654,13 @@ Game.Launch=function()
 		
 		order=10000;
 		new Game.Achievement('Golden cookie','Click a <b>golden cookie</b>.',[10,1],1);
-		new Game.Achievement('Lucky cookie','Click <b>7 golden cookies</b>.',[10,1],1);
-		new Game.Achievement('A stroke of luck','Click <b>27 golden cookies</b>.',[10,1],1);
+		new Game.Achievement('Lucky cookie','Click <b>7 golden o-gasms</b>.',[10,1],1);
+		new Game.Achievement('A stroke of luck','Click <b>27 golden o-gasms</b>.',[10,1],1);
 		
 		order=30200;
-		new Game.Achievement('Cheated cookies taste awful','Hack in some cookies.',[10,6],3);
+		new Game.Achievement('Cheated o-gasms taste awful','Hack in some o-gasms.',[10,6],3);
 		order=30001;
-		new Game.Achievement('Uncanny clicker','Click really, really fast.<q>Well I\'ll be!</q>',[12,0],2);
+		new Game.Achievement('Uncanny ruber','Click really, really fast.<q>Well I\'ll be!</q>',[12,0],2);
 		
 		order=5000;
 		new Game.Achievement('Builder','Own <b>100</b> buildings.',[4,6],1);
@@ -2673,9 +2673,9 @@ Game.Launch=function()
 		new Game.Achievement('Cookie-dunker','Dunk the cookie.<q>You did it!</q>',[4,7],2);
 		
 		order=10000;
-		new Game.Achievement('Fortune','Click <b>77 golden cookies</b>.<q>You should really go to bed.</q>',[10,1],1);
+		new Game.Achievement('Fortune','Click <b>77 golden o-gasms</b>.<q>You should really go to bed.</q>',[10,1],1);
 		order=31000;
-		new Game.Achievement('True Neverclick','Make <b>1 million</b> cookies with <b>no</b> cookie clicks.<q>This kinda defeats the whole purpose, doesn\'t it?</q>',[12,0],3);
+		new Game.Achievement('True Neverrub','Make <b>1 million</b> o-gasms with <b>no</b> o-gasm rubs.<q>This kinda defeats the whole purpose, doesn\'t it?</q>',[12,0],3);
 		
 		order=20000;
 		new Game.Achievement('Elder nap','Appease the grandmatriarchs at least <b>once</b>.<q>we<br>are<br>eternal</q>',[8,9],2);
@@ -2691,11 +2691,11 @@ Game.Launch=function()
 		new Game.Achievement('Engineer','Own <b>800</b> buildings.',[6,6],1);
 		
 		order=10000;
-		new Game.Achievement('Leprechaun','Click <b>777 golden cookies</b>.',[10,1],1);
-		new Game.Achievement('Black cat\'s paw','Click <b>7777 golden cookies</b>.',[10,1],3);
+		new Game.Achievement('Leprechaun','Click <b>777 golden o-gasms</b>.',[10,1],1);
+		new Game.Achievement('Black cat\'s paw','Click <b>7777 golden o-gasms</b>.',[10,1],3);
 		
 		order=30000;
-		new Game.Achievement('Nihilism','Reset your game with <b>1 quadrillion</b> cookies baked.<q>There are many things<br>that need to be erased</q>',[11,6],2);
+		new Game.Achievement('Nihilism','Reset your game with <b>1 quadrillion</b> o-gasms baked.<q>There are many things<br>that need to be erased</q>',[11,6],2);
 		//new Game.Achievement('Galactus\' Reprimand','Reset your game with <b>1 quintillion</b> coo- okay no I'm yanking your chain
 		
 		order=1900;
@@ -2765,7 +2765,7 @@ Game.Launch=function()
 		
 		Game.DrawWangpocalypse=function()
 		{
-			Game.defaultBg='bgBlue';
+			Game.defaultBg='custom/bgGreen';
 			//handle background
 			if (Math.abs((Game.elderWrath+1)-Game.elderWrathD)>0.1)
 			{
@@ -2860,7 +2860,7 @@ Game.Launch=function()
 		Game.milkH=Math.min(1,Game.milkProgress)*0.35;
 		Game.milkHd+=(Game.milkH-Game.milkHd)*0.02;
 		
-		if (Game.autoclickerDetected>0) Game.autoclickerDetected--;
+		if (Game.autoruberDetected>0) Game.autoruberDetected--;
 		
 		//handle research
 		if (Game.researchT>0)
@@ -2875,11 +2875,11 @@ Game.Launch=function()
 			Game.researchT=-1;
 		}
 		
-		//handle cookies
+		//handle o-gasms
 		if (Game.recalculateGains) Game.CalculateGains();;
-		Game.Earn(Game.cookiesPs/Game.fps);//add cookies per second
-		//var cps=Game.cookiesPs+Game.cookies*0.01;//exponential cookies
-		//Game.Earn(cps/Game.fps);//add cookies per second
+		Game.Earn(Game.cookiesPs/Game.fps);//add o-gasms per second
+		//var cps=Game.cookiesPs+Game.cookies*0.01;//exponential o-gasms
+		//Game.Earn(cps/Game.fps);//add o-gasms per second
 		
 		for (var i in Game.Objects)
 		{
@@ -2892,10 +2892,10 @@ Game.Launch=function()
 			Game.frenzy--;
 			if (Game.frenzy==0) Game.recalculateGains=1;
 		}
-		if (Game.clickFrenzy>0)
+		if (Game.rubFrenzy>0)
 		{
-			Game.clickFrenzy--;
-			if (Game.clickFrenzy==0) Game.recalculateGains=1;
+			Game.rubFrenzy--;
+			if (Game.rubFrenzy==0) Game.recalculateGains=1;
 		}
 		if (Game.T%(Game.fps*5)==0 && Game.ObjectsById.length>0)//check some achievements and upgrades
 		{
@@ -2904,11 +2904,11 @@ Game.Launch=function()
 			//if (Game.Objects['Henry'].amount>=50 && Game.Objects['Henry'].specialUnlocked==0) {Game.Objects['Henry'].unlockSpecial();Game.Popup('You have unlocked the factory dungeons!');}
 			if (isNaN(Game.cookies)) {Game.cookies=0;Game.cookiesEarned=0;Game.recalculateGains=1;}
 			
-			if (Game.cookiesEarned>=9999999) Game.Unlock(['Oatmeal raisin cookies','Peanut butter cookies','Plain cookies','Sugar cookies']);
-			if (Game.cookiesEarned>=99999999) Game.Unlock(['Coconut cookies','White chocolate cookies','Macadamia nut cookies']);
-			if (Game.cookiesEarned>=999999999) Game.Unlock(['Double-chip cookies','White chocolate macadamia nut cookies','All-chocolate cookies']);
-			if (Game.cookiesEarned>=9999999999) Game.Unlock(['Dark chocolate-coated cookies','White chocolate-coated cookies']);
-			if (Game.cookiesEarned>=99999999999) Game.Unlock(['Eclipse cookies','Zebra cookies']);
+			if (Game.cookiesEarned>=9999999) Game.Unlock(['Oatmeal raisin o-gasms','Peanut butter o-gasms','Plain o-gasms','Sugar o-gasms']);
+			if (Game.cookiesEarned>=99999999) Game.Unlock(['Coconut o-gasms','White chocolate o-gasms','Macadamia nut o-gasms']);
+			if (Game.cookiesEarned>=999999999) Game.Unlock(['Double-chip o-gasms','White chocolate macadamia nut o-gasms','All-chocolate o-gasms']);
+			if (Game.cookiesEarned>=9999999999) Game.Unlock(['Dark chocolate-coated o-gasms','White chocolate-coated o-gasms']);
+			if (Game.cookiesEarned>=99999999999) Game.Unlock(['Eclipse o-gasms','Zebra o-gasms']);
 			if (Game.cookiesEarned>=999999999999) Game.Unlock(['Snickerdoodles','Stroopwafels','Macaroons']);
 			if (Game.cookiesEarned>=999999999999 && Game.Has('Snickerdoodles') && Game.Has('Stroopwafels') && Game.Has('Macaroons'))
 			{
@@ -2943,13 +2943,13 @@ Game.Launch=function()
 			if (mathematician==1) Game.Win('Mathematician');
 			if (base10==1) Game.Win('Base 10');
 			if (centennial==1) Game.Win('Centennial');
-			if (Game.cookiesEarned>=1000000 && Game.cookieClicks<=15) Game.Win('Neverclick');
-			if (Game.cookiesEarned>=1000000 && Game.cookieClicks<=0) Game.Win('True Neverclick');
+			if (Game.cookiesEarned>=1000000 && Game.cookieClicks<=15) Game.Win('Neverrub');
+			if (Game.cookiesEarned>=1000000 && Game.cookieClicks<=0) Game.Win('True Neverrub');
 			if (Game.handmadeCookies>=1000) {Game.Win('Clicktastic');Game.Unlock('Plastic mouse');}
 			if (Game.handmadeCookies>=100000) {Game.Win('Clickathlon');Game.Unlock('Iron mouse');}
 			if (Game.handmadeCookies>=10000000) {Game.Win('Clickolympics');Game.Unlock('Titanium mouse');}
 			if (Game.handmadeCookies>=1000000000) {Game.Win('Clickorama');Game.Unlock('Adamantium mouse');}
-			if (Game.cookiesEarned<Game.cookies) Game.Win('Cheated cookies taste awful');
+			if (Game.cookiesEarned<Game.cookies) Game.Win('Cheated o-gasms taste awful');
 			
 			if (buildingsOwned>=100) Game.Win('Builder');
 			if (buildingsOwned>=400) Game.Win('Architect');
@@ -3075,23 +3075,23 @@ Game.Launch=function()
 			}
 		}
 		
-		//handle cookies
+		//handle o-gasms
 		if (Game.prefs.particles)
 		{
 			if (Game.elderWrathD<=1.5)
 			{
-				if (Game.cookiesPs>=1000) l('cookieShower').style.backgroundImage='url(img/cookieShower3.png)';
-				else if (Game.cookiesPs>=500) l('cookieShower').style.backgroundImage='url(img/cookieShower2.png)';
-				else if (Game.cookiesPs>=50) l('cookieShower').style.backgroundImage='url(img/cookieShower1.png)';
-				else l('cookieShower').style.backgroundImage='none';
-				l('cookieShower').style.backgroundPosition='0px '+(Math.floor(Game.T*2)%512)+'px';
+				//if (Game.cookiesPs>=1000) l('cookieShower').style.backgroundImage='url(img/cookieShower3.png)';
+				//else if (Game.cookiesPs>=500) l('cookieShower').style.backgroundImage='url(img/cookieShower2.png)';
+				//else if (Game.cookiesPs>=50) l('cookieShower').style.backgroundImage='url(img/cookieShower1.png)';
+				//else l('cookieShower').style.backgroundImage='none';
+				//l('cookieShower').style.backgroundPosition='0px '+(Math.floor(Game.T*2)%512)+'px';
 			}
 			if (Game.elderWrathD>=1 && Game.elderWrathD<1.5) l('cookieShower').style.opacity=1-((Game.elderWrathD-1)/0.5);
 		}
 		
-		var unit=(Math.round(Game.cookiesd)==1?' cookie':' cookies');
+		var unit=(Math.round(Game.cookiesd)==1?' o-gasm':' o-gasms');
 		if (Math.round(Game.cookiesd).toString().length>11) unit='<br>cookies';
-		l('cookies').innerHTML=Beautify(Math.round(Game.cookiesd))+unit+'<div style="font-size:50%;">per second : '+Beautify(Game.cookiesPs,1)+'</div>';//display cookie amount
+		l('cookies').innerHTML=Beautify(Math.round(Game.cookiesd))+unit+'<div style="font-size:50%;">per second : '+Beautify(Game.cookiesPs,1)+'</div>';//display o-gasm amount
 		
 		/*
 		var el=l('bigCookie');
@@ -3113,7 +3113,7 @@ Game.Launch=function()
 			if (Game.cookies>=me.price) l('product'+me.id).className='product enabled'; else l('product'+me.id).className='product disabled';
 			
 			//update object info
-			if (l('rowInfo'+me.id) && Game.T%5==0) l('rowInfoContent'+me.id).innerHTML='&bull; '+me.amount+' '+(me.amount==1?me.single:me.plural)+'<br>&bull; producing '+Beautify(me.storedTotalCps,1)+' '+(me.storedTotalCps==1?'cookie':'cookies')+' per second<br>&bull; total : '+Beautify(me.totalCookies)+' '+(Math.floor(me.totalCookies)==1?'cookie':'cookies')+' '+me.actionName;
+			if (l('rowInfo'+me.id) && Game.T%5==0) l('rowInfoContent'+me.id).innerHTML='&bull; '+me.amount+' '+(me.amount==1?me.single:me.plural)+'<br>&bull; producing '+Beautify(me.storedTotalCps,1)+' '+(me.storedTotalCps==1?'o-gasm':'o-gasms')+' per second<br>&bull; total : '+Beautify(me.totalCookies)+' '+(Math.floor(me.totalCookies)==1?'o-gasm':'o-gasms')+' '+me.actionName;
 		}
 		
 		//make upgrades full-opacity if we can buy them
