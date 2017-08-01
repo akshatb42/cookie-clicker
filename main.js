@@ -183,7 +183,7 @@ Game.Launch=function()
 		Game.catchupLogic=0;
 		
 		Game.cookiesEarned=0;//all o-gasms earned during gameplay
-		Game.cookies=10000000;//cookies
+		Game.cookies=0;//cookies
 		Game.cookiesd=0;//cookies display
 		Game.cookiesPs=1;//cookies per second (to recalculate with every new purchase)
 		Game.cookiesReset=0;//cookies lost to resetting
@@ -2038,7 +2038,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
-		new Game.Object('Henry','henry|henries|extracted','Latest neumatic vacuum o-gasm technology.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
+		new Game.Object('Henry','henry|henries|extracted','Latest neumatic vacuum o-gasm technology.','custom/henry-small','custom/henry-face','factoryBackground',5000,function(){
 			return Game.ComputeCps(10,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Henry v2','Henry v3']);if (this.amount>=10) Game.Unlock('Henry v4000');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -2046,8 +2046,8 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
-		new Game.Object('Tdawg','tharindu|tharindus|produced','Brings you o-gasms from different dimensions.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
-			return Game.ComputeCps(10,Game.Has('Babe lloyd')*4,Game.Has('Pineapple')+Game.Has('Bald eagle')+Game.Has('Radium reactors'));
+		new Game.Object('Tdawg','tharindu|tharindus|produced','Brings you o-gasms from different dimensions.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',30000,function(){
+			return Game.ComputeCps(50,Game.Has('Babe lloyd')*4,Game.Has('Pineapple')+Game.Has('Bald eagle')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Babe lloyd','Pineapple']);
                         if (this.amount>=10) Game.Unlock('Bald eagle');
