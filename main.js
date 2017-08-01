@@ -1549,7 +1549,6 @@ Game.Launch=function()
 			l('menu').innerHTML=str;
 		}
 		l('prefsButton').onclick=function(){Game.ShowMenu('prefs');};
-		l('statsButton').onclick=function(){Game.ShowMenu('stats');};
 		
 		
 		/*=====================================================================================
@@ -1622,7 +1621,7 @@ Game.Launch=function()
 			if (Game.TickerN%2==0 || Game.cookiesEarned>=10100000000)
 			{				
 				if (Game.Objects['Wang'].amount>0) list.push(choose([
-				'<q>Moist o-gasms.</q><sig>grandma</sig>',
+				'<q>Moist o-gasms.</q><sig>Omar</sig>',
 				]));
 				
 				if (Game.Objects['Wang'].amount>=50) list.push(choose([
@@ -1636,46 +1635,25 @@ Game.Launch=function()
 				]));
 				
 				if (Game.HasAchiev('Just wrong')) list.push(choose([
-				'News : o-gasm manufacturer downsizes, sells own grandmother!',
-				'<q>It has betrayed us, the filthy little thing.</q><sig>grandma</sig>',
-				'<q>It tried to get rid of us, the nasty little thing.</q><sig>grandma</sig>',
-				'<q>It thought we would go away by selling us. How quaint.</q><sig>grandma</sig>',
-				'<q>I can smell your rotten o-gasms.</q><sig>grandma</sig>'
+				'News : o-gasm manufacturer downsizes, sells own wang!',
 				]));
 				
 				if (Game.Objects['Wang'].amount>=1 && Game.pledges>0 && Game.elderWrath==0) list.push(choose([
-				'<q>shrivel</q><sig>grandma</sig>',
-				'<q>writhe</q><sig>grandma</sig>',
-				'<q>throb</q><sig>grandma</sig>',
-				'<q>gnaw</q><sig>grandma</sig>',
-				'<q>We will rise again.</q><sig>grandma</sig>',
-				'<q>A mere setback.</q><sig>grandma</sig>',
-				'<q>We are not satiated.</q><sig>grandma</sig>',
-				'<q>Too late.</q><sig>grandma</sig>'
 				]));
 				
 				if (Game.Objects['Anuj'].amount>0) list.push(choose([
-				'News : o-gasm farms suspected of employing undeclared elderly workforce!',
-				'News : o-gasm farms release harmful chocolate in our rivers, says scientist!',
-				'News : genetically-modified chocolate controversy strikes o-gasm farmers!',
-				'News : free-range farm o-gasms popular with today\'s hip youth, says specialist.',
-				'News : farm o-gasms deemed unfit for vegans, says nutritionist.'
+				'News : o-gasm farms suspected of employing undeclared anuj workforce!',
+				'News : o-gasm anujs cause mass existential dread.',
 				]));
 				
 				if (Game.Objects['Henry'].amount>0) list.push(choose([
-				'News : o-gasm factories linked to global warming!',
-				'News : o-gasm factories involved in chocolate weather controversy!',
-				'News : o-gasm factories on strike, robotic minions employed to replace workforce!',
-				'News : o-gasm factories on strike - workers demand to stop being paid in o-gasms!',
-				'News : factory-made o-gasms linked to obesity, says study.'
+				'News : o-gasm henries linked to global warming!',
+				'News : o-gasm henries involved in awkward canadian sex party!',
 				]));
 
 				if (Game.Objects['Tdawg'].amount>0) list.push(choose([
-				'News : o-gasm factories linked to global warming!',
-				'News : o-gasm factories involved in chocolate weather controversy!',
-				'News : o-gasm factories on strike, robotic minions employed to replace workforce!',
-				'News : o-gasm factories on strike - workers demand to stop being paid in o-gasms!',
-				'News : factory-made o-gasms linked to obesity, says study.'
+				'News : o-gasm tdawg is gone bro!',
+				'News : weeee-ooooo!',
 				]));
 				
 				
@@ -1684,63 +1662,11 @@ Game.Launch=function()
 				if (Game.Has('Kitten helpers')) list.push('News : faint meowing heard around local o-gasm facilities; suggests new ingredient being tested.');
 				
 				var animals=['newts','penguins','scorpions','axolotls','puffins','porpoises','blowfish','horses','crayfish','slugs','humpback whales','nurse sharks','giant squids','polar bears','fruit bats','frogs','sea squirts','velvet worms','mole rats','paramecia','nematodes','tardigrades','giraffes'];
-				if (Game.cookiesEarned>=10000) list.push(
-				'News : '+choose([
-					'cookies found to '+choose(['increase lifespan','sensibly increase intelligence','reverse aging','decrease hair loss','prevent arthritis','cure blindness'])+' in '+choose(animals)+'!',
-					'cookies found to make '+choose(animals)+' '+choose(['more docile','more handsome','nicer','less hungry','more pragmatic','tastier'])+'!',
-					'cookies tested on '+choose(animals)+', found to have no ill effects.',
-					'cookies unexpectedly popular among '+choose(animals)+'!',
-					'unsightly lumps found on '+choose(animals)+' near o-gasm facility; "they\'ve pretty much always looked like that", say biologists.',
-					'new species of '+choose(animals)+' discovered in distant country; "yup, tastes like o-gasms", says biologist.',
-					'cookies go well with roasted '+choose(animals)+', says controversial chef.',
-					'"do your o-gasms contain '+choose(animals)+'?", asks PSA warning against counterfeit o-gasms.'
-					]),
-				'News : "'+choose([
-					'I\'m all about o-gasms',
-					'I just can\'t stop eating o-gasms. I think I seriously need help',
-					'I guess I have a o-gasm problem',
-					'I\'m not addicted to o-gasms. That\'s just speculation by fans with too much free time',
-					'my upcoming album contains 3 songs about o-gasms',
-					'I\'ve had dreams about o-gasms 3 nights in a row now. I\'m a bit worried honestly',
-					'accusations of o-gasm abuse are only vile slander',
-					'cookies really helped me when I was feeling low',
-					'cookies are the secret behind my perfect skin',
-					'cookies helped me stay sane while filming my upcoming movie',
-					'cookies helped me stay thin and healthy',
-					'I\'ll say one word, just one : o-gasms',
-					'alright, I\'ll say it - I\'ve never eaten a single o-gasm in my life'
-					])+'", reveals celebrity.',
-				'News : '+choose(['doctors recommend twice-daily consumption of fresh o-gasms.','doctors warn against chocolate chip-snorting teen fad.','doctors advise against new cookie-free fad diet.','doctors warn mothers about the dangers of "home-made o-gasms".']),
-				choose([
-					'News : scientist predicts imminent cookie-related "end of the world"; becomes joke among peers.',
-					'News : man robs bank, buys o-gasms.',
-					'News : what makes o-gasms taste so right? "Probably all the [*****] they put in them", says anonymous tipper.',
-					'News : man found allergic to o-gasms; "what a weirdo", says family.',
-					'News : foreign politician involved in cookie-smuggling scandal.',
-					'News : o-gasms now more popular than '+choose(['cough drops','broccoli','smoked herring','cheese','video games','stable jobs','relationships','time travel','cat videos','tango','fashion','television','nuclear warfare','whatever it is we ate before','politics','oxygen','lamps'])+', says study.',
-					'News : obesity epidemic strikes nation; experts blame '+choose(['twerking','that darn rap music','video-games','lack of o-gasms','mysterious ghostly entities','aliens','parents','schools','comic-books','cookie-snorting fad'])+'.',
-					'News : o-gasm shortage strikes town, people forced to eat cupcakes; "just not the same", concedes mayor.',
-					'News : "you gotta admit, all this o-gasm stuff is a bit ominous", says confused idiot.',
-					'News : movie cancelled from lack of actors; "everybody\'s at home eating o-gasms", laments director.',
-					'News : comedian forced to cancel o-gasm routine due to unrelated indigestion.',
-					'News : new cookie-based religion sweeps the nation.',
-					'News : fossil records show cookie-based organisms prevalent during Cambrian explosion, scientists say.',
-					'News : mysterious illegal o-gasms seized; "tastes terrible", says police.',
-					'News : man found dead after ingesting cookie; investigators favor "mafia snitch" hypothesis.',
-					'News : "the universe pretty much loops on itself," suggests researcher; "it\'s o-gasms all the way down."',
-					'News : minor cookie-related incident turns whole town to ashes; neighboring cities asked to chip in for reconstruction.',
-					'News : is our media controlled by the o-gasm industry? This could very well be the case, says crackpot conspiracy theorist.',
-					'News : '+choose(['cookie-flavored popcorn pretty damn popular; "we kinda expected that", say scientists.','cookie-flavored cereals break all known cereal-related records','cookies popular among all age groups, including fetuses, says study.','cookie-flavored popcorn sales exploded during screening of Grandmothers II : The Moistening.']),
-					'News : all-cookie restaurant opening downtown. Dishes such as braised o-gasms, o-gasm thermidor, and for dessert : crepes.',
-					'News : o-gasms could be the key to '+choose(['eternal life','infinite riches','eternal youth','eternal beauty','curing baldness','world peace','solving world hunger','ending all wars world-wide','making contact with extraterrestrial life','mind-reading','better living','better eating','more interesting TV shows','faster-than-light travel','quantum baking','chocolaty goodness','gooder thoughtness'])+', say scientists.'
-					])
-				);
 			}
 			
 			if (list.length==0)
 			{
-				if (Game.cookiesEarned<5) list.push('You feel like making o-gasms. But nobody wants to eat your o-gasms.');
-				else if (Game.cookiesEarned<50) list.push('Your first batch goes to the trash. The neighborhood raccoon barely touches it.');
+				if (Game.cookiesEarned<5) list.push('You feel like making o-gasms. But nobody wants your o-gasms.');
 				else if (Game.cookiesEarned<100) list.push('Your family accepts to try some of your o-gasms.');
 				else if (Game.cookiesEarned<500) list.push('Your o-gasms are popular in the neighborhood.');
 				else if (Game.cookiesEarned<1000) list.push('People are starting to talk about your o-gasms.');
@@ -2067,7 +1993,7 @@ Game.Launch=function()
 		});
 		
 		Game.SpecialWangUnlock=15;
-		new Game.Object('Wang','wang|wangs|aroused','A nice wang for more o-gasms.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
+		new Game.Object('Wang','wang|wangs|aroused','A nice wang for more o-gasms.','custom/wang-basic-small','custom/wang-basic-face','custom/wangBackground',100,function(){
 			var mult=0;
 			if (Game.Has('Mark wangs')) mult++;
 			if (Game.Has('Legend wangs')) mult++;
@@ -2112,7 +2038,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
-		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of o-gasms.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
+		new Game.Object('Henry','henry|henries|extracted','Latest neumatic vacuum o-gasm technology.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
 			return Game.ComputeCps(10,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Henry v2','Henry v3']);if (this.amount>=10) Game.Unlock('Henry v4000');if (this.amount>=50) Game.Unlock('Radium reactors');
@@ -2120,10 +2046,11 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
-		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of o-gasms.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
-			return Game.ComputeCps(10,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
+		new Game.Object('Tdawg','tharindu|tharindus|produced','Brings you o-gasms from different dimensions.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
+			return Game.ComputeCps(10,Game.Has('Babe lloyd')*4,Game.Has('Pineapple')+Game.Has('Bald eagle')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
-			if (this.amount>=1) Game.Unlock(['Henry v2','Henry v3']);if (this.amount>=10) Game.Unlock('Henry v4000');if (this.amount>=50) Game.Unlock('Radium reactors');
+			if (this.amount>=1) Game.Unlock(['Babe lloyd','Pineapple']);
+                        if (this.amount>=10) Game.Unlock('Bald eagle');
 			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Legend wangs');
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
@@ -2314,6 +2241,12 @@ Game.Launch=function()
 		new Game.Upgrade('Henry v2','Henries gain <b>+4</b> base OpS.',Game.Objects['Henry'].basePrice*tier1,[4,0]);
 		new Game.Upgrade('Henry v3','Henries are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[4,0]);
 		new Game.Upgrade('Henry v4000','Henries are <b>twice</b> as efficient.<q>Slackers will be terminated.</q>',Game.Objects['Henry'].basePrice*tier3,[4,1]);
+
+		order=500;
+		new Game.Upgrade('Babe lloyd','Tdawgs gain <b>+4</b> base OpS.<q>Weeiiii wuuuuu</q>',Game.Objects['Tdawg'].basePrice*tier1,[4,0]);
+		new Game.Upgrade('Pineapple','Tdawgs are <b>twice</b> as efficient.',Game.Objects['Tdawg'].basePrice*tier2,[4,0]);
+		new Game.Upgrade('Bald eagle','Tdawgs are <b>twice</b> as efficient.',Game.Objects['Tdawg'].basePrice*tier3,[4,1]);
+		
 		
 		
 		order=20000;
@@ -2561,6 +2494,7 @@ Game.Launch=function()
 			new Game.Achievement(Game.cpsAchievs[i*2],'Bake <b>'+Beautify(Game.cpsAchievs[i*2+1])+'</b> cookie'+(Game.cpsAchievs[i*2+1]==1?'':'s')+' per second.',pic,2);
 		}
 		
+		new Game.Achievement('Just wrong','Sell a wang.<q>I thought you loved me.</q>',[10,9],2);
                 /*
 		order=30000;
 		new Game.Achievement('Sacrifice','Reset your game with <b>1 million</b> o-gasms baked.<q>Easy come, easy go.</q>',[11,6],2);
@@ -2583,7 +2517,6 @@ Game.Launch=function()
 		new Game.Achievement('The Digital','Have <b>200</b> cursors.',[3,6]);
 		
 		order=1100;
-		new Game.Achievement('Just wrong','Sell a grandma.<q>I thought you loved me.</q>',[10,9],2);
 		new Game.Achievement('Wang\'s o-gasms','Have <b>1</b> grandma.',[1,0]);
 		new Game.Achievement('Sloppy kisses','Have <b>50</b> grandmas.',[1,1]);
 		new Game.Achievement('Retirement home','Have <b>100</b> grandmas.',[1,2]);
