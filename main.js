@@ -1992,7 +1992,7 @@ Game.Launch=function()
 			if (this.amount>=1) Game.Win('Click');if (this.amount>=2) Game.Win('Double-rub');if (this.amount>=50) Game.Win('Mouse wheel');if (this.amount>=100) Game.Win('Of Mice and Men');if (this.amount>=200) Game.Win('The Digital');		
 		});
 		
-		Game.SpecialWangUnlock=15;
+		Game.SpecialWangUnlock=4;
 		new Game.Object('Wang','wang|wangs|aroused','A nice wang for more o-gasms.','custom/wang-basic-small','custom/wang-basic-face','custom/wangBackground',100,function(){
 			var mult=0;
 			if (Game.Has('Mark wangs')) mult++;
@@ -2039,7 +2039,7 @@ Game.Launch=function()
 		});
 		
 		new Game.Object('Henry','henry|henries|extracted','Latest neumatic vacuum o-gasm technology.','custom/henry-small','custom/henry-face','factoryBackground',5000,function(){
-			return Game.ComputeCps(10,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
+			return Game.ComputeCps(25,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Henry v2','Henry v3']);if (this.amount>=10) Game.Unlock('Henry v4000');if (this.amount>=50) Game.Unlock('Radium reactors');
 			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Legend wangs');
@@ -2047,7 +2047,7 @@ Game.Launch=function()
 		});
 		
 		new Game.Object('Tdawg','tharindu|tharindus|produced','Brings you o-gasms from different dimensions.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',30000,function(){
-			return Game.ComputeCps(50,Game.Has('Babe lloyd')*4,Game.Has('Pineapple')+Game.Has('Bald eagle')+Game.Has('Radium reactors'));
+			return Game.ComputeCps(150,Game.Has('Babe lloyd')*4,Game.Has('Pineapple')+Game.Has('Bald eagle')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
 			if (this.amount>=1) Game.Unlock(['Babe lloyd','Pineapple']);
                         if (this.amount>=10) Game.Unlock('Bald eagle');
@@ -2095,6 +2095,14 @@ Game.Launch=function()
 					{
 						Game.Spend(price);
 						this.bought=1;
+						if (this.name == 'Mark wangs') {
+							Game.Objects['Wang'].icon = 'custom/wang-blue-face';
+							Game.Objects['Wang'].refresh();
+						}
+						if (this.name == 'Legend wangs') {
+							Game.Objects['Wang'].icon = 'custom/wang-legend-face';
+							Game.Objects['Wang'].refresh();
+						}
 						if (this.buyFunction) this.buyFunction();
 						Game.upgradesToRebuild=1;
 						Game.recalculateGains=1;
