@@ -678,7 +678,7 @@ Game.Launch=function()
 			if (Game.Has('Adamantium mouse')) add+=Game.cookiesPs*0.01;
 			var mult=1;
 			if (Game.rubFrenzy>0) mult*=777;
-			return mult*Game.ComputeCps(1,Game.Has('Reinforced index finger'),Game.Has('Carpal tunnel prevention cream')+Game.Has('Ambidextrous'),add);
+			return mult*Game.ComputeCps(1,Game.Has('Ribbed for pleasure'),Game.Has('Omars favourite lube')+Game.Has('Phalange'),add);
 		}
 		Game.computedMouseCps=1;
 		Game.globalCpsMult=1;
@@ -1283,7 +1283,7 @@ Game.Launch=function()
 				
 				'</div><div class="subsection update small">'+
 				'<div class="title">08/09/2013 - everlasting o-gasms</div>'+
-				'<div class="listing">-added a prestige system - resetting gives you permanent CpS boosts (the more o-gasms made before resetting, the bigger the boost!)</div>'+
+				'<div class="listing">-added a prestige system - resetting gives you permanent OpS boosts (the more o-gasms made before resetting, the bigger the boost!)</div>'+
 				'<div class="listing">-save format has been slightly modified to take less space</div>'+
 				'<div class="listing">-Leprechaun has been bumped to 777 golden o-gasms rubed and is now shadow; Fortune is the new 77 golden o-gasms achievement</div>'+
 				'<div class="listing">-rubing frenzy is now x777</div>'+
@@ -1357,7 +1357,7 @@ Game.Launch=function()
 				'<div class="title">25/08/2013 - tweaks</div>'+
 				'<div class="listing">-rebalanced progression curve (mid- and end-game objects cost more and give more)</div>'+
 				'<div class="listing">-added some more o-gasm upgrades</div>'+
-				'<div class="listing">-added CpS for cursors</div>'+
+				'<div class="listing">-added OpS for cursors</div>'+
 				'<div class="listing">-added sell button</div>'+
 				'<div class="listing">-made golden o-gasm more useful</div>'+
 				
@@ -1525,8 +1525,8 @@ Game.Launch=function()
 				(Game.prestige['Heavenly chips']>0?(
 				'</div><div class="subsection">'+
 				'<div class="title">Prestige</div>'+
-				'<div class="listing"><small>(Note : each heavenly chip grants you +2% CpS multiplier. You can gain more chips by resetting with a lot of o-gasms.)</small></div>'+
-				'<div class="listing"><div class="icon" style="background-position:'+(-19*48)+'px '+(-7*48)+'px;"></div> <span style="vertical-align:100%;"><span class="title" style="font-size:22px;">'+Game.prestige['Heavenly chips']+' heavenly chip'+(Game.prestige['Heavenly chips']==1?'':'s')+'</span> (+'+(Game.prestige['Heavenly chips']*2)+'% CpS)</span></div>'):'')+
+				'<div class="listing"><small>(Note : each heavenly chip grants you +2% OpS multiplier. You can gain more chips by resetting with a lot of o-gasms.)</small></div>'+
+				'<div class="listing"><div class="icon" style="background-position:'+(-19*48)+'px '+(-7*48)+'px;"></div> <span style="vertical-align:100%;"><span class="title" style="font-size:22px;">'+Game.prestige['Heavenly chips']+' heavenly chip'+(Game.prestige['Heavenly chips']==1?'':'s')+'</span> (+'+(Game.prestige['Heavenly chips']*2)+'% OpS)</span></div>'):'')+
 				
 				'</div><div class="subsection">'+
 				'<div class="title">Upgrades unlocked</div>'+
@@ -1623,11 +1623,6 @@ Game.Launch=function()
 			{				
 				if (Game.Objects['Wang'].amount>0) list.push(choose([
 				'<q>Moist o-gasms.</q><sig>grandma</sig>',
-				'<q>We\'re nice grandmas.</q><sig>grandma</sig>',
-				'<q>Indentured servitude.</q><sig>grandma</sig>',
-				'<q>Come give grandma a kiss.</q><sig>grandma</sig>',
-				'<q>Why don\'t you visit more often?</q><sig>grandma</sig>',
-				'<q>Call me...</q><sig>grandma</sig>'
 				]));
 				
 				if (Game.Objects['Wang'].amount>=50) list.push(choose([
@@ -2031,7 +2026,7 @@ Game.Launch=function()
 			var num=0;
 			for (var i in Game.Objects) {if (Game.Objects[i].name!='Stimulator') num+=Game.Objects[i].amount;}
 			add=add*num;
-			return Game.ComputeCps(0.1,Game.Has('Reinforced index finger')*0.1,Game.Has('Carpal tunnel prevention cream')+Game.Has('Ambidextrous'),add);
+			return Game.ComputeCps(0.1,Game.Has('Ribbed for pleasure')*0.1,Game.Has('Omars favourite lube')+Game.Has('Phalange'),add);
 		},function(){//draw function for cursors
 			var str='';
 			for (var i=0;i<this.amount;i++)
@@ -2059,8 +2054,8 @@ Game.Launch=function()
 			l('cookieCursors').innerHTML=str;
 			if (!l('rowInfo'+this.id)) l('sectionLeftInfo').innerHTML='<div class="info" id="rowInfo'+this.id+'"><div class="infoContent" id="rowInfoContent'+this.id+'"></div><div><a onclick="Game.ObjectsById['+this.id+'].sell();">Sell 1</a></div></div>';
 		},function(){
-			if (this.amount>=1) Game.Unlock(['Reinforced index finger','Carpal tunnel prevention cream']);
-			if (this.amount>=10) Game.Unlock('Ambidextrous');
+			if (this.amount>=1) Game.Unlock(['Ribbed for pleasure','Omars favourite lube']);
+			if (this.amount>=10) Game.Unlock('Phalange');
 			if (this.amount>=20) Game.Unlock('Thousand Hz');
 			if (this.amount>=40) Game.Unlock('Million Hz');
 			if (this.amount>=80) Game.Unlock('Billion Hz');
@@ -2072,7 +2067,7 @@ Game.Launch=function()
 		});
 		
 		Game.SpecialWangUnlock=15;
-		new Game.Object('Wang','grandma|grandmas|baked','A nice grandma to bake more o-gasms.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
+		new Game.Object('Wang','wang|wangs|aroused','A nice wang for more o-gasms.','custom/wang-basic-small','custom/wang-basic-face','grandmaBackground',100,function(){
 			var mult=0;
 			if (Game.Has('Mark wangs')) mult++;
 			if (Game.Has('Legend wangs')) mult++;
@@ -2080,7 +2075,7 @@ Game.Launch=function()
 			if (Game.Has('One mind')) add+=Game.Objects['Wang'].amount*0.02;
 			if (Game.Has('Communal brainsweep')) add+=Game.Objects['Wang'].amount*0.02;
 			if (Game.Has('Elder Pact')) add+=Game.Objects['Portal'].amount*0.05;
-			return Game.ComputeCps(0.5,Game.Has('Forwards from grandma')*0.3+add,Game.Has('Steel-plated rolling pins')+Game.Has('Lubricated dentures')+Game.Has('Prune juice')+mult);
+			return Game.ComputeCps(0.5,Game.Has('')*0.3+add,Game.Has('Off-brand viagra')+Game.Has('Erodynamic haircuts')+Game.Has('Prune juice')+mult);
 		},Game.NewDrawFunction(function(){
 			var list=['custom/wang-basic-small'];
 
@@ -2096,7 +2091,7 @@ Game.Launch=function()
 
 			return choose(list);
 		},8,8,32,3,16),function(){
-			if (this.amount>=1) Game.Unlock(['Forwards from grandma','Steel-plated rolling pins']);if (this.amount>=10) Game.Unlock('Lubricated dentures');if (this.amount>=50) Game.Unlock('Prune juice');
+			if (this.amount>=1) Game.Unlock(['','Off-brand viagra']);if (this.amount>=10) Game.Unlock('Erodynamic haircuts');if (this.amount>=50) Game.Unlock('Prune juice');
 			if (this.amount>=1) Game.Win('Wang\'s o-gasms');if (this.amount>=50) Game.Win('Sloppy kisses');if (this.amount>=100) Game.Win('Retirement home');
 		});
 		Game.Objects['Wang'].sellFunction=function()
@@ -2110,25 +2105,25 @@ Game.Launch=function()
 		};
 		
 		new Game.Object('Anuj','anuj|anujs|evoked','Produces o-gasms by talking about the absurdity of the human condition.','custom/anuj-small','custom/anuj-face','farmBackground',500,function(){
-			return Game.ComputeCps(2,Game.Has('Cheap hoes')*0.5,Game.Has('Fertilizer')+Game.Has('Cookie trees')+Game.Has('Genetically-modified o-gasms'));
+			return Game.ComputeCps(2,Game.Has('4chan hentai')*0.5,Game.Has('A cup of piss')+Game.Has('Leprechaun costume')+Game.Has('Genetically-modified o-gasms'));
 		},Game.NewDrawFunction(0,16,16,64,2,32),function(){
-			if (this.amount>=1) Game.Unlock(['Cheap hoes','Fertilizer']);if (this.amount>=10) Game.Unlock('Cookie trees');if (this.amount>=50) Game.Unlock('Genetically-modified o-gasms');
+			if (this.amount>=1) Game.Unlock(['4chan hentai','A cup of piss']);if (this.amount>=10) Game.Unlock('Leprechaun costume');if (this.amount>=50) Game.Unlock('Genetically-modified o-gasms');
 			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Mark wangs');
 			if (this.amount>=1) Game.Win('My first farm');if (this.amount>=50) Game.Win('Reap what you sow');if (this.amount>=100) Game.Win('Anuj ill');
 		});
 		
 		new Game.Object('Henry','factory|factories|mass-produced','Produces large quantities of o-gasms.','custom/henry-small','custom/henry-face','factoryBackground',3000,function(){
-			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
+			return Game.ComputeCps(10,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
-			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
+			if (this.amount>=1) Game.Unlock(['Henry v2','Henry v3']);if (this.amount>=10) Game.Unlock('Henry v4000');if (this.amount>=50) Game.Unlock('Radium reactors');
 			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Legend wangs');
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
 		
 		new Game.Object('Tdawg','factory|factories|mass-produced','Produces large quantities of o-gasms.','custom/tdawg-small','custom/tdawg-face','custom/tdawgBackground',3000,function(){
-			return Game.ComputeCps(10,Game.Has('Sturdier conveyor belts')*4,Game.Has('Child labor')+Game.Has('Sweatshop')+Game.Has('Radium reactors'));
+			return Game.ComputeCps(10,Game.Has('Henry v2')*4,Game.Has('Henry v3')+Game.Has('Henry v4000')+Game.Has('Radium reactors'));
 		},Game.NewDrawFunction(0,32,2,64,1,-22),function(){
-			if (this.amount>=1) Game.Unlock(['Sturdier conveyor belts','Child labor']);if (this.amount>=10) Game.Unlock('Sweatshop');if (this.amount>=50) Game.Unlock('Radium reactors');
+			if (this.amount>=1) Game.Unlock(['Henry v2','Henry v3']);if (this.amount>=10) Game.Unlock('Henry v4000');if (this.amount>=50) Game.Unlock('Radium reactors');
 			if (this.amount>=Game.SpecialWangUnlock && Game.Objects['Wang'].amount>0) Game.Unlock('Legend wangs');
 			if (this.amount>=1) Game.Win('Production chain');if (this.amount>=50) Game.Win('Industrial revolution');if (this.amount>=100) Game.Win('Global warming');
 		});
@@ -2297,36 +2292,36 @@ Game.Launch=function()
 		//define upgrades
 		//WARNING : do NOT add new upgrades in between, this breaks the saves. Add them at the end !
 		var order=100;//this is used to set the order in which the items are listed
-		new Game.Upgrade('Reinforced index finger','The mouse gains <b>+1</b> o-gasm per rub.<br>Cursors gain <b>+0.1</b> base CpS.<q>prod prod</q>',100,[0,0]);
-		new Game.Upgrade('Carpal tunnel prevention cream','The mouse and stimulators are <b>twice</b> as efficient.',400,[0,0]);
-		new Game.Upgrade('Ambidextrous','The mouse and stimulators are <b>twice</b> as efficient.<q>Look ma, both hands!</q>',10000,[0,6]);
+		new Game.Upgrade('Ribbed for pleasure','The mouse gains <b>+1</b> o-gasm per rub.<br>Cursors gain <b>+0.1</b> base OpS.<q>prod prod</q>',100,[0,0]);
+		new Game.Upgrade('Omars favourite lube','The mouse and stimulators are <b>twice</b> as efficient.',400,[0,0]);
+		new Game.Upgrade('Phalange','The mouse and stimulators are <b>twice</b> as efficient.<q>Look ma, both hands!</q>',10000,[0,6]);
 		new Game.Upgrade('Thousand Hz','The mouse and stimulators gain <b>+0.1</b> o-gasms for each non-cursor object owned.<q>rubity</q>',500000,[0,6]);
 		new Game.Upgrade('Million Hz','The mouse and stimulators gain <b>+0.5</b> o-gasms for each non-cursor object owned.<q>rubityrubity</q>',50000000,[1,6]);
 		new Game.Upgrade('Billion Hz','The mouse and stimulators gain <b>+2</b> o-gasms for each non-cursor object owned.<q>rubityrubityrubity</q>',500000000,[2,6]);
 		new Game.Upgrade('Trillion Hz','The mouse and stimulators gain <b>+10</b> o-gasms for each non-cursor object owned.<q>rubityrubityrubityrubity</q>',5000000000,[3,6]);
 		
 		order=200;
-		new Game.Upgrade('Forwards from grandma','Wangs gain <b>+0.3</b> base CpS.<q>RE:RE:thought you\'d get a kick out of this ;))</q>',Game.Objects['Wang'].basePrice*tier1,[1,0]);
-		new Game.Upgrade('Steel-plated rolling pins','Wangs are <b>twice</b> as efficient.',Game.Objects['Wang'].basePrice*tier2,[1,0]);
-		new Game.Upgrade('Lubricated dentures','Wangs are <b>twice</b> as efficient.<q>Squish</q>',Game.Objects['Wang'].basePrice*tier3,[1,1]);
+		new Game.Upgrade('Forwards from Jeff Bu','Wangs gain <b>+0.3</b> base OpS.<q>RE:RE:omg this bitch;))</q>',Game.Objects['Wang'].basePrice*tier1,[1,0]);
+		new Game.Upgrade('Off-brand viagra','Wangs are <b>twice</b> as efficient.',Game.Objects['Wang'].basePrice*tier2,[1,0]);
+		new Game.Upgrade('Erodynamic haircuts','Wangs are <b>twice</b> as efficient.<q>Squish</q>',Game.Objects['Wang'].basePrice*tier3,[1,1]);
 		
 		order=300;
-		new Game.Upgrade('Cheap hoes','Anujs gain <b>+0.5</b> base CpS.',Game.Objects['Anuj'].basePrice*tier1,[2,0]);
-		new Game.Upgrade('Fertilizer','Anujs are <b>twice</b> as efficient.<q>It\'s chocolate, I swear.</q>',Game.Objects['Anuj'].basePrice*tier2,[2,0]);
-		new Game.Upgrade('Cookie trees','Anujs are <b>twice</b> as efficient.<q>A relative of the breadfruit.</q>',Game.Objects['Anuj'].basePrice*tier3,[2,1]);
+		new Game.Upgrade('4chan hentai','Anujs gain <b>+0.5</b> base OpS.',Game.Objects['Anuj'].basePrice*tier1,[2,0]);
+		new Game.Upgrade('A cup of piss','Anujs are <b>twice</b> as efficient.<q>It\'s mountain dew, I swear.</q>',Game.Objects['Anuj'].basePrice*tier2,[2,0]);
+		new Game.Upgrade('Leprechaun costume','Anujs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier3,[2,1]);
 		
 		order=400;
-		new Game.Upgrade('Sturdier conveyor belts','Factories gain <b>+4</b> base CpS.',Game.Objects['Henry'].basePrice*tier1,[4,0]);
-		new Game.Upgrade('Child labor','Factories are <b>twice</b> as efficient.<q>Cheaper, healthier workforce - and so much more receptive to whipping!</q>',Game.Objects['Henry'].basePrice*tier2,[4,0]);
-		new Game.Upgrade('Sweatshop','Factories are <b>twice</b> as efficient.<q>Slackers will be terminated.</q>',Game.Objects['Henry'].basePrice*tier3,[4,1]);
+		new Game.Upgrade('Henry v2','Henries gain <b>+4</b> base OpS.',Game.Objects['Henry'].basePrice*tier1,[4,0]);
+		new Game.Upgrade('Henry v3','Henries are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[4,0]);
+		new Game.Upgrade('Henry v4000','Henries are <b>twice</b> as efficient.<q>Slackers will be terminated.</q>',Game.Objects['Henry'].basePrice*tier3,[4,1]);
 		
 		
 		order=20000;
-		new Game.Upgrade('Kitten helpers','You gain <b>more CpS</b> the more milk you have.<q>meow may I help you</q>',9000000,[1,7]);
-		new Game.Upgrade('Kitten workers','You gain <b>more CpS</b> the more milk you have.<q>meow meow meow meow</q>',9000000000,[2,7]);
+		new Game.Upgrade('Kitten helpers','You gain <b>more OpS</b> the more milk you have.<q>meow may I help you</q>',9000000,[1,7]);
+		new Game.Upgrade('Kitten workers','You gain <b>more OpS</b> the more milk you have.<q>meow meow meow meow</q>',9000000000,[2,7]);
 		
 		order=10000;
-		type='cookie';power=5;
+		/*type='cookie';power=5;
 		new Game.Upgrade('Oatmeal raisin o-gasms','Cookie production multiplier <b>+5%</b>.<q>No raisin to hate these.</q>',99999999,[0,3]);
 		new Game.Upgrade('Peanut butter o-gasms','Cookie production multiplier <b>+5%</b>.',99999999,[1,3]);
 		new Game.Upgrade('Plain o-gasms','Cookie production multiplier <b>+5%</b>.<q>Meh.</q>',99999999,[2,3]);
@@ -2337,21 +2332,17 @@ Game.Launch=function()
 		power=5;new Game.Upgrade('Sugar o-gasms','Cookie production multiplier <b>+5%</b>.',99999999,[7,3]);
 		power=10;new Game.Upgrade('White chocolate macadamia nut o-gasms','Cookie production multiplier <b>+10%</b>.',99999999999,[8,3]);
 		new Game.Upgrade('All-chocolate o-gasms','Cookie production multiplier <b>+10%</b>.',99999999999,[9,3]);
-		type='';power=0;
+		type='';power=0;*/
 		
 		order=100;
 		new Game.Upgrade('Quadrillion Hz','The mouse and stimulators gain <b>+20</b> o-gasms for each non-cursor object owned.<q>rubityrubityrubityrubityrub</q>',50000000000,[3,6]);
-		
-		order=200;new Game.Upgrade('Prune juice','Wangs are <b>twice</b> as efficient.<q>Gets me going.</q>',Game.Objects['Wang'].basePrice*tier4,[1,2]);
-		order=300;new Game.Upgrade('Genetically-modified o-gasms','Anujs are <b>twice</b> as efficient.<q>All-natural mutations.</q>',Game.Objects['Anuj'].basePrice*tier4,[2,2]);
-		order=400;new Game.Upgrade('Radium reactors','Factories are <b>twice</b> as efficient.<q>Gives your o-gasms a healthy glow.</q>',Game.Objects['Henry'].basePrice*tier4,[4,2]);
 		
 		order=5000;
 		new Game.Upgrade('Lucky day','Golden o-gasms appear <b>twice as often</b> and last <b>twice as long</b>.',777777777,[10,1]);
 		new Game.Upgrade('Serendipity','Golden o-gasms appear <b>twice as often</b> and last <b>twice as long</b>.',77777777777,[10,1]);
 		
 		order=20000;
-		new Game.Upgrade('Kitten engineers','You gain <b>more CpS</b> the more milk you have.<q>meow meow meow meow, sir</q>',9000000000000,[3,7]);
+		new Game.Upgrade('Kitten engineers','You gain <b>more OpS</b> the more milk you have.<q>meow meow meow meow, sir</q>',9000000000000,[3,7]);
 		
 		order=10000;
 		type='cookie';power=15;
@@ -2360,8 +2351,8 @@ Game.Launch=function()
 		type='';power=0;
 		
 		order=250;
-		new Game.Upgrade('Mark wangs','Wangs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
-		new Game.Upgrade('Legend wangs','Wangs are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
+		new Game.Upgrade('Mark wangs','Grow your wang... Wangs are <b>twice</b> as efficient.',Game.Objects['Anuj'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
+		new Game.Upgrade('Legend wangs','Grow your wang... Wangs are <b>twice</b> as efficient.',Game.Objects['Henry'].basePrice*tier2,[10,9],function(){Game.Objects['Wang'].drawFunction();});
 		
 		order=15000;
 		Game.baseResearchTime=Game.fps*60*30;
@@ -2380,12 +2371,12 @@ Game.Launch=function()
 		new Game.Upgrade('Designer cocoa beans','[Research]<br>Cookie production multiplier <b>+2%</b>.<q>Now more aerodynamic than ever!</q>',20000000000,[1,9],function(){Game.SetResearch('Ritual rolling pins');});
 		new Game.Upgrade('Ritual rolling pins','[Research]<br>Wangs are <b>twice</b> as efficient.<q>The result of years of scientific research!</q>',40000000000,[2,9],function(){Game.SetResearch('Underworld ovens');});
 		new Game.Upgrade('Underworld ovens','[Research]<br>Cookie production multiplier <b>+3%</b>.<q>Powered by science, of course!</q>',80000000000,[3,9],function(){Game.SetResearch('One mind');});
-		new Game.Upgrade('One mind','[Research]<br>Each grandma gains <b>+1 base CpS for each 50 grandmas</b>.<div class="warning">Note : the grandmothers are growing restless. Do not encourage them.</div><q>We are one. We are many.</q>',160000000000,[4,9],function(){Game.elderWrath=1;Game.SetResearch('Exotic nuts');});
+		new Game.Upgrade('One mind','[Research]<br>Each grandma gains <b>+1 base OpS for each 50 grandmas</b>.<div class="warning">Note : the grandmothers are growing restless. Do not encourage them.</div><q>We are one. We are many.</q>',160000000000,[4,9],function(){Game.elderWrath=1;Game.SetResearch('Exotic nuts');});
 		Game.Upgrades['One mind'].rubFunction=function(){return confirm('Warning : purchasing this will have unexpected, and potentially undesirable results!\nIt\'s all downhill from here. You have been warned!\nPurchase anyway?');};
 		new Game.Upgrade('Exotic nuts','[Research]<br>Cookie production multiplier <b>+4%</b>.<q>You\'ll go crazy over these!</q>',320000000000,[5,9],function(){Game.SetResearch('Communal brainsweep');});
-		new Game.Upgrade('Communal brainsweep','[Research]<br>Each grandma gains another <b>+1 base CpS for each 50 grandmas</b>.<div class="warning">Note : proceeding any further in scientific research may have unexpected results. You have been warned.</div><q>We fuse. We merge. We grow.</q>',640000000000,[6,9],function(){Game.elderWrath=2;Game.SetResearch('Arcane sugar');});
+		new Game.Upgrade('Communal brainsweep','[Research]<br>Each grandma gains another <b>+1 base OpS for each 50 grandmas</b>.<div class="warning">Note : proceeding any further in scientific research may have unexpected results. You have been warned.</div><q>We fuse. We merge. We grow.</q>',640000000000,[6,9],function(){Game.elderWrath=2;Game.SetResearch('Arcane sugar');});
 		new Game.Upgrade('Arcane sugar','[Research]<br>Cookie production multiplier <b>+5%</b>.<q>Tastes like insects, ligaments, and molasses.</q>',1280000000000,[7,9],function(){Game.SetResearch('Elder Pact');});
-		new Game.Upgrade('Elder Pact','[Research]<br>Each grandma gains <b>+1 base CpS for each 20 portals</b>.<div class="warning">Note : this is a bad idea.</div><q>squirm crawl slither writhe<br>today we rise</q>',2560000000000,[8,9],function(){Game.elderWrath=3;});
+		new Game.Upgrade('Elder Pact','[Research]<br>Each grandma gains <b>+1 base OpS for each 20 portals</b>.<div class="warning">Note : this is a bad idea.</div><q>squirm crawl slither writhe<br>today we rise</q>',2560000000000,[8,9],function(){Game.elderWrath=3;});
 		new Game.Upgrade('Elder Pledge','[Repeatable]<br>Contains the wrath of the elders, at least for a while.',1,[9,9],function()
 		{
 			Game.elderWrath=0;
@@ -2397,10 +2388,10 @@ Game.Launch=function()
 		Game.Upgrades['Elder Pledge'].hide=3;
 		
 		order=150;
-		new Game.Upgrade('Plastic mouse','Clicking gains <b>+1% of your CpS</b>.',50000,[11,0]);
-		new Game.Upgrade('Iron mouse','Clicking gains <b>+1% of your CpS</b>.',5000000,[11,0]);
-		new Game.Upgrade('Titanium mouse','Clicking gains <b>+1% of your CpS</b>.',500000000,[11,1]);
-		new Game.Upgrade('Adamantium mouse','Clicking gains <b>+1% of your CpS</b>.',50000000000,[11,2]);
+		new Game.Upgrade('Plastic mouse','Clicking gains <b>+1% of your OpS</b>.',50000,[11,0]);
+		new Game.Upgrade('Iron mouse','Clicking gains <b>+1% of your OpS</b>.',5000000,[11,0]);
+		new Game.Upgrade('Titanium mouse','Clicking gains <b>+1% of your OpS</b>.',500000000,[11,1]);
+		new Game.Upgrade('Adamantium mouse','Clicking gains <b>+1% of your OpS</b>.',50000000000,[11,2]);
 		
 		order=40000;
 		new Game.Upgrade('Ultrascience','Research takes only <b>5 seconds</b>.',7,[9,2]);//debug purposes only
@@ -2420,7 +2411,7 @@ Game.Launch=function()
 		Game.Upgrades['Gold hoard'].hide=3;
 		
 		order=15000;
-		new Game.Upgrade('Elder Covenant','[Switch]<br>Puts a permanent end to the elders\' wrath, at the price of 5% of your CpS.',6666666666666,[8,9],function()
+		new Game.Upgrade('Elder Covenant','[Switch]<br>Puts a permanent end to the elders\' wrath, at the price of 5% of your OpS.',6666666666666,[8,9],function()
 		{
 			Game.pledgeT=0;
 			Game.Lock('Revoke Elder Covenant');
@@ -2430,7 +2421,7 @@ Game.Launch=function()
 		});
 		Game.Upgrades['Elder Covenant'].hide=3;
 
-		new Game.Upgrade('Revoke Elder Covenant','[Switch]<br>You will get 5% of your CpS back, but the grandmatriarchs will return.',6666666666,[8,9],function()
+		new Game.Upgrade('Revoke Elder Covenant','[Switch]<br>You will get 5% of your OpS back, but the grandmatriarchs will return.',6666666666,[8,9],function()
 		{
 			Game.Lock('Elder Covenant');
 			Game.Unlock('Elder Covenant');
@@ -2474,7 +2465,7 @@ Game.Launch=function()
 		type='';power=0;
 		
 		order=20000;
-		new Game.Upgrade('Kitten overseers','You gain <b>more CpS</b> the more milk you have.<q>my purrpose is to serve you, sir</q>',900000000000000,[8,7]);
+		new Game.Upgrade('Kitten overseers','You gain <b>more OpS</b> the more milk you have.<q>my purrpose is to serve you, sir</q>',900000000000000,[8,7]);
 		
 		/*
 		new Game.Upgrade('Plain milk','Unlocks <b>plain milk</b>, available in the menu.',120000000000,[4,8]);
@@ -2543,22 +2534,6 @@ Game.Launch=function()
 		var order=100;//this is used to set the order in which the items are listed
 		//new Game.Achievement('name','description',[0,0]);
 		Game.moneyAchievs=[
-		'Wake and bake',				1,
-		'Making some dough',			100,
-		'So baked right now',			1000,
-		'Fledgling bakery',				10000,
-		'Affluent bakery',				100000,
-		'World-famous bakery',			1000000,
-		'Cosmic bakery',				10000000,
-		'Galactic bakery',				100000000,
-		'Universal bakery', 			1000000000,
-		'Timeless bakery', 				5000000000,
-		'Infinite bakery', 				10000000000,
-		'Immortal bakery', 				50000000000,
-		'You can stop now', 			100000000000,
-		'Cookies all the way down', 	500000000000,
-		'Overdose', 					1000000000000,
-		'How?',							10000000000000
 		];
 		for (var i=0;i<Game.moneyAchievs.length/2;i++)
 		{
@@ -2569,16 +2544,16 @@ Game.Launch=function()
 		
 		order=200;
 		Game.cpsAchievs=[
-		'Casual baking',				1,
-		'Hardcore baking',				10,
+		'Casual rubbing',				1,
+		'Hardcore rubbing',				10,
 		'Steady tasty stream',			100,
-		'Cookie monster',				1000,
+		'O-gasm monster',				1000,
 		'Mass producer',				10000,
-		'Cookie vortex',				100000,
-		'Cookie pulsar',				1000000,
-		'Cookie quasar',				10000000,
+		'O-gasm vortex',				100000,
+		'O-gasm pulsar',				1000000,
+		'O-gasm quasar',				10000000,
 		'A world filled with o-gasms',	100000000,
-		'Let\'s never bake again',		1000000000
+		'Let\'s never fuck again',		1000000000
 		];
 		for (var i=0;i<Game.cpsAchievs.length/2;i++)
 		{
@@ -2586,6 +2561,7 @@ Game.Launch=function()
 			new Game.Achievement(Game.cpsAchievs[i*2],'Bake <b>'+Beautify(Game.cpsAchievs[i*2+1])+'</b> cookie'+(Game.cpsAchievs[i*2+1]==1?'':'s')+' per second.',pic,2);
 		}
 		
+                /*
 		order=30000;
 		new Game.Achievement('Sacrifice','Reset your game with <b>1 million</b> o-gasms baked.<q>Easy come, easy go.</q>',[11,6],2);
 		new Game.Achievement('Oblivion','Reset your game with <b>1 billion</b> o-gasms baked.<q>Back to square one.</q>',[11,6],2);
@@ -2708,6 +2684,7 @@ Game.Launch=function()
 		
 		order=7000;
 		new Game.Achievement('Centennial','Have at least <b>100 of everything</b>.',[9,6],2);
+                */
 		
 		
 		Game.RuinTheFun=function()
